@@ -1,12 +1,12 @@
 # X Bookmarks Organizer Usage Guide
 
-[< Back to README](./README.md)
+[< Back to README](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README.md)
 
-English ver. | [日本語版](./usage-ja.md)
+English ver. | [日本語版](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)
 
 ## Add post to folder
 
-![0.png](./usage-imgs/0.png)
+![0.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/0.png)
 
 1. Right-click on the bookmark button to open the Edit Folder UI.
 2. Input folders' name to textbox.
@@ -17,7 +17,7 @@ Separate folders from each other with a space. If a folder name contains spaces,
 
 ---
 
-![1.png](./usage-imgs/1.png)
+![1.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/1.png)
 
 Using the selection box, you can easily add posts to an existing folder.
 
@@ -25,19 +25,19 @@ Click on an option item to add or remove it from the folder.
 
 ## Edit folder of post
 
-![2.png](./usage-imgs/2.png)
+![2.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/2.png)
 
 You can edit a folder of already bookmarked posts by editing the folder and clicking the "Update" button in the same way as when adding to a folder.
 
 ## Filter posts in Bookmarks page
 
-![3.png](./usage-imgs/3.png)
+![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/3.png)
 
 By clicking on the button with the folder name on the bookmarks page, you can filter and unfilter by that folder.
 
 ## View folder list
 
-![4.png](./usage-imgs/4.png)
+![4.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/4.png)
 
 Click "..." to open the folder list.
 
@@ -47,7 +47,7 @@ Click "Edit folders" to enter editing mode.
 
 ## Folder editing mode
 
-![5.png](./usage-imgs/5.png)
+![5.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/5.png)
 
 ### Edit folder name
 
@@ -68,7 +68,7 @@ Click "Finish editing" to finish editing mode.
 
 ## Script's Setting
 
-![6.png](./usage-imgs/6.png)
+![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/6.png)
 
 ### Open setting panel
 
