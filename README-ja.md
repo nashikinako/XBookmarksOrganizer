@@ -1,14 +1,13 @@
 # X Bookmarks Organizer
 
-[English ver.](./README.md) | 日本語版
+[English ver.](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README.md) | 日本語版
 
-![ユーザースクリプトのアイコン](./icon.png)
+![ユーザースクリプトのアイコン](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/icon.png)
 
 Xのブックマークを無料でフォルダに整理。
 
-| 関連ページへのリンク |
-|--|
-| [GitHub](https://github.com/nashikinako/XBookmarksOrganizer/) \| GreasyFork |
+**関連ページへのリンク**  
+[GitHub](https://github.com/nashikinako/XBookmarksOrganizer) | [GreasyFork](https://greasyfork.org/scripts/496107-x-bookmarks-organizer)
 
 ## 機能
 
@@ -27,8 +26,8 @@ Xのブックマークを無料でフォルダに整理。
   その他のChromiumベースのブラウザやFirefox派生ブラウザでも動作するかもしれません。
 
 - ユーザースクリプト管理拡張機能
-  - Tampermonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/tampermonkey/)
-  - Violentmonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/violent-monkey/jinjaccalgkegednnccohejagnlnfdag) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/violentmonkey/)
+  - Tampermonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/tampermonkey)
+  - Violentmonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/violent-monkey/jinjaccalgkegednnccohejagnlnfdag) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/violentmonkey)
   
   その他の似たような拡張機能でも動作するかもしれません。
 
@@ -37,14 +36,14 @@ Xのブックマークを無料でフォルダに整理。
 
 ## インストール
 
-GreasyFork | [GitHub (開発版)](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/XBookmarksOrganizer.user.js)
+[GreasyFork](https://update.greasyfork.org/scripts/496107/X%20Bookmarks%20Organizer.user.js) | [GitHub (開発版)](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/XBookmarksOrganizer.user.js)
 
 > [!IMPORTANT]  
 > GitHubからのインストールはお勧めしません。まだ開発途中のバージョンがインストールされる可能性があります。
 
 ## 使い方
 
-[使い方ガイド](./usage-ja.md)をご覧ください。
+[使い方ガイド](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)をご覧ください。
 
 ## メモ
 
@@ -61,4 +60,4 @@ GreasyFork | [GitHub (開発版)](https://raw.githubusercontent.com/nashikinako/
 
 ## ライセンス
 
-「X Bookmarks Organizer」は[MITライセンス](./LICENSE)のもとで公開されています。
+「X Bookmarks Organizer」は[MITライセンス](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE)のもとで公開されています。

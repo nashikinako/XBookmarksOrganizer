@@ -1,14 +1,13 @@
 # X Bookmarks Organizer
 
-English ver. | [日本語版](./README-ja.md)
+English ver. | [日本語版](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README-ja.md)
 
-![User script's icon](./icon.png)
+![User script's icon](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/icon.png)
 
 Organize your X bookmarks into folders for free.
 
-| Links to related pages |
-|--|
-| [GitHub](https://github.com/nashikinako/XBookmarksOrganizer/) \| GreasyFork |
+**Links to related pages**  
+[GitHub](https://github.com/nashikinako/XBookmarksOrganizer) | [GreasyFork](https://greasyfork.org/scripts/496107-x-bookmarks-organizer)
 
 ## Features
 
@@ -27,8 +26,8 @@ Organize your X bookmarks into folders for free.
   Other browsers such as Chromium-based browsers and Firefox-derived browsers may also work.
 
 - User script manager extension
-  - Tampermonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/tampermonkey/)
-  - Violentmonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/violent-monkey/jinjaccalgkegednnccohejagnlnfdag) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/violentmonkey/)
+  - Tampermonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/tampermonkey)
+  - Violentmonkey - [Chrome Web Store](https://chrome.google.com/webstore/detail/violent-monkey/jinjaccalgkegednnccohejagnlnfdag) | [Firefox AMO](https://addons.mozilla.org/firefox/addon/violentmonkey)
   
   Other similar extensions may also work.
 
@@ -37,14 +36,14 @@ Organize your X bookmarks into folders for free.
 
 ## Installation
 
-GreasyFork | [GitHub (Development Edition)](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/XBookmarksOrganizer.user.js)
+[GreasyFork](https://update.greasyfork.org/scripts/496107/X%20Bookmarks%20Organizer.user.js) | [GitHub (Development Edition)](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/XBookmarksOrganizer.user.js)
 
 > [!IMPORTANT]  
 > Installation from GitHub is not recommended. It may install a version that is still under development.
 
 ## Usage
 
-See [usage guide](./usage.md).
+See [usage guide](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md).
 
 ## Note
 
@@ -61,4 +60,4 @@ See [usage guide](./usage.md).
 
 ## License
 
-"X Bookmarks Organizer" is under [MIT license](./LICENSE).
+"X Bookmarks Organizer" is under [MIT license](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE).

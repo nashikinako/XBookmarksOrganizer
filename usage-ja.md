@@ -1,12 +1,12 @@
 # X Bookmarks Organizer 使い方ガイド
 
-[< READMEに戻る](./README-ja.md)
+[< READMEに戻る](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README-ja.md)
 
-[English ver.](./usage.md) | 日本語版
+[English ver.](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md) | 日本語版
 
 ## ポストをフォルダに追加する
 
-![0.png](./usage-imgs/ja/0.png)
+![0.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/0.png)
 
 1. ブックマークボタンを右クリックしてフォルダの編集UIを開きます。
 2. フォルダーの名前をテキストボックスに入力していきます。
@@ -17,7 +17,7 @@
 
 ---
 
-![1.png](./usage-imgs/ja/1.png)
+![1.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/1.png)
 
 選択ボックスを使って、既存のフォルダにポストを簡単に追加できます。
 
@@ -25,19 +25,19 @@
 
 ## ポストのフォルダを編集する
 
-![2.png](./usage-imgs/ja/2.png)
+![2.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/2.png)
 
 すでにブックマークされている記事のフォルダを編集するには、フォルダに追加するときと同じようにフォルダを編集して「更新」ボタンをクリックします。
 
 ## ブックマークページでポストをフィルタ処理する
 
-![3.png](./usage-imgs/ja/3.png)
+![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/3.png)
 
 ブックマークページのフォルダ名のボタンをクリックすると、そのフォルダでフィルタ処理とフィルタ処理解除ができます。
 
 ## フォルダ一覧を見る
 
-![4.png](./usage-imgs/ja/4.png)
+![4.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/4.png)
 
 「...」をクリックしてフォルダ一覧を開きます。
 
@@ -47,7 +47,7 @@
 
 ## フォルダ編集モード
 
-![5.png](./usage-imgs/ja/5.png)
+![5.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/5.png)
 
 ### フォルダ名を編集
 
@@ -68,7 +68,7 @@
 
 ## スクリプトの設定
 
-![6.png](./usage-imgs/ja/6.png)
+![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/6.png)
 
 ### 設定パネルを開く
 
