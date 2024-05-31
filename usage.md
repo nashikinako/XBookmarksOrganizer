@@ -4,6 +4,9 @@
 
 English ver. | [日本語版](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)
 
+> [!NOTE]  
+> Some of the images are the UI from the previous version, but there are no major differences from the current version. Please understand.
+
 ## Add post to folder
 
 ![0.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/0.png)
@@ -72,7 +75,7 @@ Click "Finish editing" to finish editing mode.
 
 ### Open setting panel
 
-Click the gear button next to the title of the bookmark page to open it.
+Click the "Open X Bookmarks Organizer setting" that is in X's setting page.
 
 ### Language
 
