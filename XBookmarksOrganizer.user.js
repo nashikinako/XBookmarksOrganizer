@@ -7,11 +7,11 @@
 // @icon        https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/icon.png
 // @grant       GM_setValue
 // @grant       GM_getValue
-// @version     1.0.0
+// @version     1.1.0
 // @author      Nashikinako
 // @license     MIT
 // @description Organize your X bookmarks into folders for free.
-// @description:ja Xのブックマークを無料でフォルダに整理。
+// @description:ja Xのブックマークを無料でフォルダーに整理。
 // @supportURL  https://github.com/nashikinako/XBookmarksOrganizer/issues
 // @require     https://code.jquery.com/jquery-3.7.1.min.js
 // ==/UserScript==
@@ -31,20 +31,10 @@ $(function () {
     return result;
   };
 
-  // 投稿をすべて表示する関数
-  const showAllPosts = () => {
-    $("article:has('time')").each(function (index, timeElm) {
-      // 表示がnoneの場合は表示する
-      if ($(timeElm).parent().parent().parent().css("display") === "none") {
-        $(timeElm).parent().parent().parent().css("display", "block");
-      }
-    });
-  };
-
   // bookmarksInfoの更新時にallFoldersを更新する関数
   const updateAllFolders = () => {
     allFolders = [...new Set(bookmarksInfo.flatMap((post) => post.folders))];
-    // フォルダ内の投稿数が多い順にソート
+    // フォルダー内の投稿数が多い順にソート
     allFolders.sort((a, b) => {
       return (
         bookmarksInfo.filter((post) => post.folders.includes(b)).length -
@@ -81,13 +71,13 @@ $(function () {
         "xbo-selected"
       );
       $(`.xbo-folderElm[data-folder="${selectedFolder}"]`).append(
-        $(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="xbo-deselectionSvg">
-  <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
-</svg>`)
+        $(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="xbo-deselectionSvg">${svgCodeLib["xMark"]}</svg>`
+        )
       );
       $("#xbo-folderSelectionUI").append(
         $(
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-showAllFoldersBtn"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-showAllFoldersBtn">${svgCodeLib["ellipsis"]}</svg>`
         )
       );
     }
@@ -181,13 +171,35 @@ $(function () {
   const i18nLib = {
     en: {
       firstRunTitle: "Thank you for installing X Bookmarks Organizer!",
-      firstRunBody: `<p>This script enables you to organize your X bookmarks into folders.<br>Please see <a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md">usage guide</a> to know how to use.</p>
+      firstRunBody: `<p>This script enables you to organize your X bookmarks into folders.<br>Please see <a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md" target="_blank" rel="noopener noreferrer">usage guide</a> to know how to use.</p>
 <p class="xbo-UI_categoryTitle">About Donations</p>
 <p>This script is provided free of charge, but donations are welcome.<br>The only method is to purchase gift certificates from Amazon.co.jp, so if you do not live in Japan, it may be difficult to donate, but your donation will help us encourage future development.</p>
-<p>If you would like to make a donation, you can do so by purchasing and sending an Amazon.co.jp gift certificate to <a href="mailto:nashikinako@outlook.com">nashikinako@outlook.com</a>.</p>`,
+<p>If you would like to make a donation, you can do so by purchasing and sending an Amazon.co.jp gift certificate to <code>nashikinako★outlook.com</code> (★→@).</p>`,
       updateInfoTitle: "X Bookmarks Organizer has been updated to v1.0.0!",
       changeLogTitle: "Change log from previous version",
-      changeLog: `<ul><li>Initial release</li></ul>`,
+      changeLog: `<p>Add</p>
+<ul>
+  <li>Officially supports Firefox for mobile.</li>
+  <li>Adjust the UI scale to be easy to press when the window width is narrow for touch operation.</li>
+  <li>Add button to close folder editing UI due to small margins in mobile version.</li>
+</ul>
+<p>Change</p>
+<ul>
+  <li>Reduce file size by consolidating svg data.</li>
+  <li>Move the Open Script Settings button to the X settings screen.</li>
+  <li>To accommodate mobile devices, the selected items in the folder selection box in the folder editing UI have been changed to change the display string (like [ ] → [v]) instead of changing the background.</li>
+  <li>Unified Japanese "フォルダ" to "フォルダー".</li>
+</ul>
+<p>Fix</p>
+<ul>
+  <li>Fix problem with X's popup behavior being strange due to post filtering processing.</li>
+  <li>Fix problem with UI for filtering folders not displaying when window width is narrow.</li>
+  <li>Fix problem in which the width of each element in the folder editing UI was not appropriate in some environments.</li>
+  <li>Fix problem with script's modal UI not displaying properly when window size is small.</li>
+  <li>Fix problem where the folder editing UI was not displayed when there was a quoted post on the individual post display page.</li>
+  <li>Fix problem where the "About This Script" button had a large click detection.</li>
+</ul>`,
+      showPastChanges: `For past changes, see <a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHub release page</a>.`,
       setting: "Setting",
       language: "Language: ",
       langEn: "English",
@@ -215,19 +227,49 @@ $(function () {
       uncategorized: "Uncategorized",
       aboutThisScript: "About this script",
       relatedLinks: "Related links",
-      license: `<p class="xbo-UI_categoryTitle">License</p><p>MIT License</p>`,
+      author: `<p class="xbo-UI_categoryTitle">Author</p>
+<ul>
+<li>Nashikinako</li>
+<li>X: <a href="https://x.com/nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
+<li>YouTube: <a href="https://www.youtube.com/@nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
+<li>Email: <code>nashikinako★outlook.com</code> (★→@)</li>
+<li>Nashikinako Website (only in Japanese): <a href="https://nashikinako.com" target="_blank" rel="noopener noreferrer">https://nashikinako.com</a></li></ul>`,
+      license: `<p class="xbo-UI_categoryTitle">License</p><a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>`,
+      settingOpen: "Open X Bookmarks Organizer setting",
     },
     ja: {
       firstRunTitle:
         "X Bookmarks Organizerをインストールしていただきありがとうございます！",
-      firstRunBody: `<p>このスクリプトはXのブックマークを無料でフォルダに整理できるようにします。<br>使い方は<a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md">使い方ガイド</a>をご覧ください。</p>
+      firstRunBody: `<p>このスクリプトはXのブックマークを無料でフォルダーに整理できるようにします。<br>使い方は<a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md" target="_blank" rel="noopener noreferrer">使い方ガイド</a>をご覧ください。</p>
 <p class="xbo-UI_categoryTitle">寄付について</p>
 <p>このスクリプトは無料で提供していますが、寄付を受け付けています。<br>寄付をしていただけると、今後の開発の励みになります。</p>
-<p>もし寄付をしていただけるなら、Amazon.co.jpギフト券を購入して <a href="mailto:nashikinako@outlook.com">nashikinako@outlook.com</a> 宛に送っていただくことで行うことができます。`,
+<p>もし寄付をしていただけるなら、Amazon.co.jpギフト券を購入して <code>nashikinako★outlook.com</code> (★→@) 宛に送っていただくことで行うことができます。</p>`,
       updateInfoTitle:
         "X Bookmarks Organizerがv1.0.0にアップデートされました！",
       changeLogTitle: "前バージョンからの変更履歴",
-      changeLog: `<ul><li>初回リリース</li></ul>`,
+      changeLog: `<p>追加点</p>
+<ul>
+  <li>モバイル版Firefoxに正式対応</li>
+  <li>タッチ操作向けに幅が狭いときはUIスケールを押しやすいように調整</li>
+  <li>モバイル版では余白が少ないため、フォルダー編集UIを閉じるボタンを追加</li>
+</ul>
+<p>変更点</p>
+<ul>
+  <li>svgのデータをまとめることでファイルサイズを削減</li>
+  <li>スクリプトの設定を開くボタンをXの設定画面に移動</li>
+  <li>モバイルに対応するために、フォルダー編集UIのフォルダー選択ボックスの選択済み項目は背景の変更ではなく、表示文字列の変更（[ ]→[v]という感じ）に変更</li>
+  <li>日本語の「フォルダ」を「フォルダー」に統一</li>
+</ul>
+<p>修正点</p>
+<ul>
+  <li>ポストのフィルタ処理によってXのポップアップの動作がおかしくなる問題を修正</li>
+  <li>ウィンドウ幅が狭いときにフォルダーをフィルタ処理するUIが表示されない問題を修正</li>
+  <li>フォルダー編集UIの各要素の幅が一部環境では適切ではない問題をを修正</li>
+  <li>ウィンドウサイズが小さいときにスクリプトのモーダルUIが正しく表示されない問題を修正</li>
+  <li>ポストの個別表示ページで引用ポストがあった場合にフォルダー編集UIが表示されない問題を修正</li>
+  <li>「このスクリプトについて」のボタンのクリック判定が大きかった問題を修正</li>
+</ul>`,
+      showPastChanges: `過去の変更履歴は<a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHubのリリースページ</a>をご覧ください。`,
       setting: "設定",
       language: "言語：",
       langEn: "英語 - English",
@@ -239,24 +281,31 @@ $(function () {
       importOverwrite: "インポートして上書き",
       importTextarea: "ここにJSON形式で貼り付けてインポートします。",
       reset: "リセット",
-      deleteAllFolders: "全フォルダを削除",
+      deleteAllFolders: "全フォルダーを削除",
       confirmImportOverwrite: "インポートして上書きしますか？",
-      confirmDeleteAllFolders: "全フォルダを削除しますか？",
-      foldersList: "フォルダ一覧",
-      editFolders: "フォルダを編集",
+      confirmDeleteAllFolders: "全フォルダーを削除しますか？",
+      foldersList: "フォルダー一覧",
+      editFolders: "フォルダーを編集",
       finishEditing: "編集を終了",
       confirmDiscardChanges:
-        "フォルダ名を編集中のフォルダがあります。変更を破棄しますか？",
-      confirmMargeFolders: "同名のフォルダが存在します。統合しますか？",
-      confirmDeleteFolder: "フォルダを削除しますか？",
+        "フォルダー名を編集中のフォルダーがあります。変更を破棄しますか？",
+      confirmMargeFolders: "同名のフォルダーが存在します。統合しますか？",
+      confirmDeleteFolder: "フォルダーを削除しますか？",
       updateFolder: "更新",
       yes: "はい",
       no: "いいえ",
       uncategorized: "未分類",
       aboutThisScript: "このスクリプトについて",
       relatedLinks: "関連リンク",
-      license:
-        "<p class='xbo-UI_categoryTitle'>ライセンス</p><p>MITライセンス</p>",
+      author: `<p class="xbo-UI_categoryTitle">作者</p>
+<ul>
+<li>なしきなこ</li>
+<li>X: <a href="https://x.com/nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
+<li>YouTube: <a href="https://www.youtube.com/@nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
+<li>Eメール: <code>nashikinako★outlook.com</code> (★→@)</li>
+<li>なしきなこ Website: <a href="https://nashikinako.com" target="_blank" rel="noopener noreferrer">https://nashikinako.com</a></li></ul>`,
+      license: `<p class="xbo-UI_categoryTitle">ライセンス</p><a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MITライセンス</a>`,
+      settingOpen: "X Bookmarks Organizerの設定を開く",
     },
   };
   const i18n =
@@ -302,18 +351,16 @@ $(function () {
 #xbo-settingUI, #xbo-updateInfo, #xbo-firstRunInfo, #xbo-aboutUI {
   box-sizing: border-box;
   width: 50%;
-  height: 50%;
+  height: 70%;
   padding: 15px;
   position: fixed;
-  top: 25%;
+  top: 15%;
   left: 25%;
   border-radius: 10px;
-}
-#xbo-aboutUI{
   overflow: hidden;
   padding: 0;
 }
-#xbo-aboutUI > div{
+#xbo-settingUI > div, #xbo-updateInfo > div, #xbo-firstRunInfo > div, #xbo-aboutUI > div{
   overflow-y: scroll;
   height: 100%;
   padding: 15px;
@@ -340,7 +387,7 @@ $(function () {
   vertical-align: -6px;
   fill: currentColor;
 }
-#xbo-exportBtn, #xbo-importMargeBtn {
+#xbo-exportBtn, #xbo-importMargeBtn, #xbo-importOverwriteBtn{
   margin-bottom: 5px;
   margin-right: 5px;
 }
@@ -352,11 +399,12 @@ $(function () {
   border-radius: 5px;
   box-sizing: border-box;
 }
-#xbo-openAboutUI{
+p:has(#xbo-openAboutUI){
   margin-top: 12px;
+}
+#xbo-openAboutUI{
   text-decoration: underline;
   cursor: pointer;
-  display: block;
 }
 .xbo-closeBtns{
   width: 25px;
@@ -379,7 +427,7 @@ $(function () {
 }
 #xbo-confirmDialog{
   width: 50%;
-  height: 25%;
+  height: 30%;
   position: absolute;
   top: 30%;
   left: 25%;
@@ -402,14 +450,6 @@ $(function () {
   margin: 0 10px;
   border-radius: 5px;
   color: #fff;
-}
-#xbo-settingBtn{
-  cursor: pointer;
-  position: absolute;
-  left: -12px;
-  width: 15px;
-  padding: 10px;
-  border-radius: 9999px;
 }
 #xbo-folderSelectionUI{
   padding: 10px;
@@ -480,6 +520,7 @@ $(function () {
   cursor: pointer;
   width: 25px;
   fill: currentColor;
+  margin-right: 5px;
 }
 .xbo-folderDeleteBtn{
   cursor: pointer;
@@ -488,31 +529,30 @@ $(function () {
 }
 .xbo-folderNameInput{
   font-size: 20px;
-  width: 80%;
+  width: 74%;
   height: 32px;
   margin: -6px 0 !important;
 }
 .xbo-bookmarkFolderEdit{
-  position: absolute;
-  top: -50px;
-  padding: 5px;
   border-radius: 10px;
   cursor: default;
-  width: 382px;
-  left: -292px;
   display: none;
   background: rgba(29, 155, 240, 0.5);
+  width: 100%;
+  padding: 5px;
+  margin: 10px;
+  box-sizing: border-box;
 }
 .xbo-bookmarkFolderInput{
-  width: 300px;
+  width: 70%;
   padding: 5px;
   font-size: 16px;
-  margin-right: 5px;
+  margin-right: 2%;
   vertical-align: 1px;
   border-radius: 5px;
 }
 .xbo-bookmarkFolderEdit select{
-  width: 20px;
+  width: 10%;
   padding: 6px 0;
   font-size: 12px;
   vertical-align: 2px;
@@ -520,14 +560,65 @@ $(function () {
   cursor: pointer;
 }
 .xbo-updateBtn{
+  width: 12%;
   padding: 5px;
   font-size: 12px;
-  margin-left: 5px;
+  margin-left: 2%;
   vertical-align: 2px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 5px;
+  text-align: center;
+}
+#xbo-folderEditCloseBtn{
+  border: 2px solid #a3a3a3;
+  display: none;
+  width: 15px;
+  padding: 9px;
+  vertical-align: -23px;
+  border-radius: 5px;
+  margin-right: 2%;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+@media screen and (max-width: 999px){
+  #xbo-settingUI, #xbo-updateInfo, #xbo-firstRunInfo, #xbo-aboutUI, #xbo-allFoldersUI, #xbo-confirmDialog{
+    width: 70%;
+    left: 15%;
+  }
+}
+@media screen and (max-width: 599px){
+  #xbo-settingUI, #xbo-updateInfo, #xbo-firstRunInfo, #xbo-aboutUI, #xbo-allFoldersUI, #xbo-confirmDialog{
+    width: 90%;
+    left: 5%;
+  }
+  .xbo-bookmarkFolderInput{
+    width: 76%;
+    padding: 10px 5px;
+    margin-right: 3%;
+  }
+  .xbo-bookmarkFolderEdit select{
+    width: 15%;
+    padding: 11px 0;
+    font-size: 12px;
+  }
+  .xbo-updateBtn{
+    padding: 10px 5px;
+    margin-left: 3%;
+    width: 18%;
+  }
+  #xbo-folderEditCloseBtn{
+    display: inline-block;
+  }
 }</style>`)
   );
+
+  const svgCodeLib = {
+    gear: `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/>`,
+    save: `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>`,
+    xMark: `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>`,
+    ellipsis: `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/>`,
+    edit: `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/>`,
+  };
 
   let cachedBodyBg;
   $("head").append($(`<style id="xbo-themeColor"></style>`));
@@ -595,7 +686,12 @@ $(function () {
   background: ${cssColorLib.btnInput.bg};
   color: ${cssColorLib.btnInput.color};
 }
-#xbo-settingUI button:hover, .xbo-updateBtn:hover{
+#xbo-folderEditCloseBtn{
+  border: 2px solid ${cssColorLib.btnInput.border};
+  background: ${cssColorLib.btnInput.bg};
+  fill: ${cssColorLib.btnInput.color};
+}
+#xbo-settingUI button:hover, .xbo-updateBtn:hover, #xbo-folderEditCloseBtn:hover{
   background: ${cssColorLib.btnHover};
 }
 #xbo-settingUI textarea{
@@ -617,7 +713,7 @@ $(function () {
 #xbo-noBtn:hover{
   background: ${cssColorLib.noBtnHover};
 }
-#xbo-settingBtn, #xbo-showAllFoldersBtn, .xbo-closeBtns{
+#xbo-showAllFoldersBtn, .xbo-closeBtns{
   fill: ${cssColorLib.overUIBtn};
 }
 #xbo-settingBtn:hover, #xbo-showAllFoldersBtn:hover, .xbo-closeBtns:hover{
@@ -655,146 +751,16 @@ $(function () {
       }
       // ブックマークページの場合
       if (location.pathname === "/i/bookmarks") {
-        // ユーザースクリプトの設定画面を開くボタンが追加されていない場合、設定画面を開くボタンを追加する
-        if ($("#xbo-settingBtn").length === 0) {
-          $(
-            "div.css-175oi2r.r-aqfbo4.r-gtdqiz.r-1gn8etr.r-1g40b8q > div:nth-child(1) > div > div > div > div > div > div.css-175oi2r.r-1pz39u2.r-1777fci.r-15ysp7h.r-obd0qt.r-s8bhmr > button"
-          ).before(
-            $(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="xbo-settingBtn"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/></svg>`
-            )
-          );
-          $("#xbo-settingBtn").on("click", function () {
-            $("#react-root").append(
-              $(`<div id="xbo-settingUI_bg" class="xbo-UI_bgs">
-  <div id="xbo-settingUI" class="xbo-UI">
-    <p class="xbo-UI_title">${i18n["setting"]}</p>
-    <p><label>${i18n["language"]}<select id="xbo-langSelect">
-      <option value="auto">Auto</option>
-      <option value="en">${i18n["langEn"]}</option>
-      <option value="ja">${i18n["langJa"]}</option>
-    </select></label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-langChangeBtn"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg></p>
-    <p class="xbo-UI_categoryTitle">${i18n["importExport"]}</p>
-    <button id="xbo-exportBtn">${i18n["export"]}</button>
-    <textarea id="xbo-exportTextarea" readonly placeholder="${i18n["exportTextarea"]}"></textarea>
-    <button id="xbo-importMargeBtn">${i18n["importMarge"]}</button><button id="xbo-importOverwriteBtn">${i18n["importOverwrite"]}</button>
-    <textarea id="xbo-importTextarea" placeholder="${i18n["importTextarea"]}"></textarea>
-    <p class="xbo-UI_categoryTitle">${i18n["reset"]}</p>
-    <p><button id="xbo-allFolderDeleteBtn">${i18n["deleteAllFolders"]}</button></p>
-    <a id="xbo-openAboutUI">${i18n["aboutThisScript"]}</a>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-settingUICloseBtn" class="xbo-closeBtns"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-  </div>
-</div>`)
-            );
-            $("body").css("overflow", "hidden");
-            $("#xbo-settingUI_bg").on("click", function () {
-              $("body").css("overflow", "unset");
-              $("#xbo-settingUI_bg").remove();
-            });
-            $("#xbo-settingUI").on("click", function (e) {
-              e.stopPropagation();
-            });
-            $("#xbo-langSelect").val(GM_getValue("lang", "auto"));
-            $("#xbo-langChangeBtn").on("click", function () {
-              GM_setValue("lang", $("#xbo-langSelect").val());
-              location.reload();
-            });
-            $("#xbo-exportBtn").on("click", function () {
-              $("#xbo-exportTextarea").val(JSON.stringify(bookmarksInfo));
-            });
-            $("#xbo-importMargeBtn").on("click", function () {
-              if ($("#xbo-importTextarea").val() === "") {
-                return;
-              }
-              const importedBookmarksInfo = JSON.parse(
-                $("#xbo-importTextarea").val()
-              );
-              // すでに同じIDのポストが存在する場合はフォルダーを統合する。新規IDの場合はそのまま追加する
-              importedBookmarksInfo.forEach((importedPost) => {
-                if (
-                  bookmarksInfo.find((post) => post.id === importedPost.id) !==
-                  undefined
-                ) {
-                  bookmarksInfo.find(
-                    (post) => post.id === importedPost.id
-                  ).folders = [
-                    ...new Set([
-                      ...bookmarksInfo.find(
-                        (post) => post.id === importedPost.id
-                      ).folders,
-                      ...importedPost.folders,
-                    ]),
-                  ];
-                } else {
-                  bookmarksInfo.push(importedPost);
-                }
-              });
-              // フォルダーを更新
-              updateAllFolders();
-              GM_setValue("bookmarksInfo", bookmarksInfo);
-            });
-            $("#xbo-importOverwriteBtn").on("click", function () {
-              if ($("#xbo-importTextarea").val() === "") {
-                return;
-              }
-              showConfirmDialog(i18n["confirmImportOverwrite"], () => {
-                selectedFolder = undefined;
-                const importedBookmarksInfo = JSON.parse(
-                  $("#xbo-importTextarea").val()
-                );
-                // BookmarksInfoを上書きする
-                bookmarksInfo = importedBookmarksInfo;
-                updateAllFolders();
-                GM_setValue("bookmarksInfo", bookmarksInfo);
-              });
-            });
-            $("#xbo-allFolderDeleteBtn").on("click", function () {
-              showConfirmDialog(i18n["confirmDeleteAllFolders"], () => {
-                selectedFolder = undefined;
-                bookmarksInfo = [];
-                updateAllFolders();
-                GM_setValue("bookmarksInfo", bookmarksInfo);
-              });
-            });
-            $("#xbo-openAboutUI").on("click", function () {
-              $("#react-root").append(
-                $(`<div id="xbo-aboutUI_bg" class="xbo-UI_bgs">
-  <div id="xbo-aboutUI" class="xbo-UI">
-    <div>
-    <p class="xbo-UI_title">${i18n["aboutThisScript"]}</p>
-    <p class="xbo-UI_categoryTitle">X Bookmarks Organizer ${GM_info.script.version}</p>
-    <div>${i18n["firstRunBody"]}</div>
-    <p class="xbo-UI_categoryTitle">${i18n["changeLogTitle"]}</p>
-    <div>${i18n["changeLog"]}</div>
-    <p class="xbo-UI_categoryTitle">${i18n["relatedLinks"]}</p>
-    <p><a href="https://github.com/nashikinako/XBookmarksOrganizer" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-    <div>${i18n["license"]}</div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-aboutUICloseBtn" class="xbo-closeBtns"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-  </div></div>
-</div>`)
-              );
-              $("#xbo-aboutUI_bg").on("click", function () {
-                $("#xbo-aboutUI_bg").remove();
-              });
-              $("#xbo-aboutUI").on("click", function (e) {
-                e.stopPropagation();
-              });
-              $("#xbo-aboutUICloseBtn").on("click", function () {
-                $("#xbo-aboutUI_bg").remove();
-              });
-            });
-            $("#xbo-settingUICloseBtn").on("click", function () {
-              $("body").css("overflow", "unset");
-              $("#xbo-settingUI_bg").remove();
-            });
-          });
-        }
         // フォルダー選択UIが既に追加されていない場合、フォルダー選択UIを追加する
         if ($("#xbo-folderSelectionUI").length === 0) {
           // フォルダー選択UIを追加
-          $(
-            "div.css-175oi2r.r-1ua6aaf.r-th6na.r-1phboty.r-16y2uox.r-184en5c.r-1c4cdxw.r-1t251xo.r-f8sm7e.r-13qz1uu.r-1ye8kvj > div > div.css-175oi2r.r-f8sm7e.r-13qz1uu.r-1ye8kvj > section > div"
-          ).before($(`<div id="xbo-folderSelectionUI"></div>`));
+          $("article:has('time'):nth-child(1)")
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .before($(`<div id="xbo-folderSelectionUI"></div>`));
           $("#xbo-folderSelectionUI").append(
             $(
               `<div class="xbo-folderElm" data-folder="${uncategorizedFolderID}">${i18n["uncategorized"]}</div>`
@@ -809,7 +775,7 @@ $(function () {
           });
           $("#xbo-folderSelectionUI").append(
             $(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-showAllFoldersBtn"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-showAllFoldersBtn">${svgCodeLib["ellipsis"]}</svg>`
             )
           );
         }
@@ -821,7 +787,6 @@ $(function () {
               $(".xbo-folderTemp").remove();
               $(elm).removeClass("xbo-selected");
               $(elm).find(".xbo-deselectionSvg").remove();
-              showAllPosts();
               return;
             }
             $(".xbo-selected").removeClass("xbo-selected");
@@ -829,9 +794,9 @@ $(function () {
             $(".xbo-folderElm").find(".xbo-deselectionSvg").remove();
             $(elm).addClass("xbo-selected");
             $(elm).append(
-              $(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="xbo-deselectionSvg">
-    <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
-  </svg>`)
+              $(
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="xbo-deselectionSvg">${svgCodeLib["xMark"]}</svg>`
+              )
             );
           });
         });
@@ -842,13 +807,13 @@ $(function () {
   <div id="xbo-allFoldersUI" class="xbo-UI">
     <p class="xbo-UI_title">${i18n["foldersList"]}<a id="xbo-folderEditBtn">${i18n["editFolders"]}</a></p>
     <div id="xbo-allFoldersList"><div class="xbo-folderListElm" data-folder="${uncategorizedFolderID}">${i18n["uncategorized"]}</div></div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-allFoldersUICloseBtn" class="xbo-closeBtns"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-allFoldersUICloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
   </div>
 </div>`)
           );
           $("body").css("overflow", "hidden");
           $("#xbo-allFoldersUI_bg").on("click", function () {
-            // もしフォルダ名が編集中の項目があれば、変更を破棄するか確認する
+            // もしフォルダー名が編集中の項目があれば、変更を破棄するか確認する
             if ($(".xbo-folderNameInput").length !== 0) {
               showConfirmDialog(i18n["confirmDiscardChanges"], () => {
                 $("#xbo-allFoldersUI_bg").remove();
@@ -868,7 +833,7 @@ $(function () {
                 `<div class="xbo-folderListElm" data-folder="${folder}"><span class="xbo-folderName">${folder}</span>
   <div class="xbo-rightBtns">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="xbo-folderNameEditBtn">
-      <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/>
+      ${svgCodeLib["edit"]}
     </svg>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="xbo-folderDeleteBtn">
       <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
@@ -880,7 +845,7 @@ $(function () {
           });
           $("#xbo-folderEditBtn").on("click", function () {
             if ($("#xbo-folderEditBtn").text() === i18n["finishEditing"]) {
-              // もしフォルダ名が編集中の項目があれば、変更を破棄するか確認する
+              // もしフォルダー名が編集中の項目があれば、変更を破棄するか確認する
               if ($(".xbo-folderNameInput").length !== 0) {
                 showConfirmDialog(i18n["confirmDiscardChanges"], () => {
                   $(".xbo-folderNameInput").each(function (index, elm) {
@@ -893,9 +858,7 @@ $(function () {
                     );
                   });
                   // 編集ボタンを元の状態に戻す
-                  $(".xbo-folderNameEditing").html(
-                    `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/>`
-                  );
+                  $(".xbo-folderNameEditing").html(svgCodeLib["edit"]);
                   $(".xbo-folderNameEditing").removeClass(
                     "xbo-folderNameEditing"
                   );
@@ -920,7 +883,7 @@ $(function () {
                 return;
               }
               selectedFolder = $(elm).attr("data-folder");
-              // フォルダーが選択されたとき、通常のフォルダボタンも選択状態にする
+              // フォルダーが選択されたとき、通常のフォルダーボタンも選択状態にする
               $(".xbo-selected").removeClass("xbo-selected");
               $(".xbo-folderTemp").remove();
               $(".xbo-folderElm").find(".xbo-deselectionSvg").remove();
@@ -940,56 +903,9 @@ $(function () {
               );
               $(`.xbo-folderElm[data-folder="${selectedFolder}"]`).append(
                 $(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="xbo-deselectionSvg">
-  <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
+  ${svgCodeLib["xMark"]}
 </svg>`)
               );
-              showAllPosts();
-              let posts = [];
-              if (selectedFolder === uncategorizedFolderID) {
-                bookmarksInfo.forEach((post) => {
-                  posts.push(post.id);
-                });
-                $("article:has('time')").each(function (index, timeElm) {
-                  if (
-                    posts.includes(
-                      $(timeElm)
-                        .find("time")
-                        .parent()
-                        .attr("href")
-                        .split("/")[3]
-                    )
-                  ) {
-                    $(timeElm)
-                      .parent()
-                      .parent()
-                      .parent()
-                      .css("display", "none");
-                  }
-                });
-              } else {
-                bookmarksInfo.forEach((post) => {
-                  if (post.folders.includes(selectedFolder)) {
-                    posts.push(post.id);
-                  }
-                });
-                $("article:has('time')").each(function (index, timeElm) {
-                  if (
-                    !posts.includes(
-                      $(timeElm)
-                        .find("time")
-                        .parent()
-                        .attr("href")
-                        .split("/")[3]
-                    )
-                  ) {
-                    $(timeElm)
-                      .parent()
-                      .parent()
-                      .parent()
-                      .css("display", "none");
-                  }
-                });
-              }
               $("#xbo-allFoldersUI_bg").remove();
               $("body").css("overflow", "unset");
             });
@@ -1008,10 +924,8 @@ $(function () {
                     .removeClass("xbo-folderNameEditing");
                   $(elm)
                     .find(".xbo-folderNameEditBtn")
-                    .html(
-                      `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/>`
-                    );
-                  // すでに同名のフォルダが存在する場合は統合するかどうか確認する
+                    .html(`${svgCodeLib["edit"]}`);
+                  // すでに同名のフォルダーが存在する場合は統合するかどうか確認する
                   if (
                     $(elm).find(".xbo-folderNameInput").val() !== "" &&
                     allFolders.includes(
@@ -1047,8 +961,8 @@ $(function () {
                           }
                         }
                       });
-                      // 統合先フォルダの方が件数が少ない場合は統合先フォルダの要素を削除する
-                      // そうでない場合は統合元フォルダの要素を削除する
+                      // 統合先フォルダーの方が件数が少ない場合は統合先フォルダーの要素を削除する
+                      // そうでない場合は統合元フォルダーの要素を削除する
                       if (hasMorePostThanTargetFolder) {
                         $(
                           `.xbo-folderListElm[data-folder="${targetFolder}"]`
@@ -1140,9 +1054,7 @@ $(function () {
                 $(elm).find(".xbo-folderNameInput").focus();
                 $(elm)
                   .find(".xbo-folderNameEditBtn")
-                  .html(
-                    `<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>`
-                  );
+                  .html(`${svgCodeLib["save"]}`);
               });
             $(elm)
               .find(".xbo-folderDeleteBtn")
@@ -1160,7 +1072,7 @@ $(function () {
                       );
                     }
                   });
-                  // フォルダが一個もないポストはデータを削除する
+                  // フォルダーが一個もないポストはデータを削除する
                   bookmarksInfo = bookmarksInfo.filter(
                     (post) => post.folders.length !== 0
                   );
@@ -1172,7 +1084,7 @@ $(function () {
               });
           });
           $("#xbo-allFoldersUICloseBtn").on("click", function () {
-            // もしフォルダ名が編集中の項目があれば、変更を破棄するか確認する
+            // もしフォルダー名が編集中の項目があれば、変更を破棄するか確認する
             if ($(".xbo-folderNameInput").length !== 0) {
               showConfirmDialog(i18n["confirmDiscardChanges"], () => {
                 $("#xbo-allFoldersUI_bg").remove();
@@ -1186,8 +1098,8 @@ $(function () {
         });
         $("#xbo-showAllFoldersBtn:not(.eventAdded)").addClass("eventAdded");
 
+        // フィルタ処理ここから
         selectedFolder = $(".xbo-selected").attr("data-folder");
-        showAllPosts();
         if (selectedFolder !== undefined) {
           let posts = [];
           if (selectedFolder === uncategorizedFolderID) {
@@ -1198,9 +1110,17 @@ $(function () {
               if (
                 posts.includes(
                   $(timeElm).find("time").parent().attr("href").split("/")[3]
-                )
+                ) &&
+                $(timeElm).parent().parent().parent().css("display") !== "none"
               ) {
                 $(timeElm).parent().parent().parent().css("display", "none");
+              } else if (
+                !posts.includes(
+                  $(timeElm).find("time").parent().attr("href").split("/")[3]
+                ) &&
+                $(timeElm).parent().parent().parent().css("display") === "none"
+              ) {
+                $(timeElm).parent().parent().parent().css("display", "block");
               }
             });
           } else {
@@ -1213,14 +1133,175 @@ $(function () {
               if (
                 !posts.includes(
                   $(timeElm).find("time").parent().attr("href").split("/")[3]
-                )
+                ) &&
+                $(timeElm).parent().parent().parent().css("display") !== "none"
               ) {
                 $(timeElm).parent().parent().parent().css("display", "none");
+              } else if (
+                posts.includes(
+                  $(timeElm).find("time").parent().attr("href").split("/")[3]
+                ) &&
+                $(timeElm).parent().parent().parent().css("display") === "none"
+              ) {
+                $(timeElm).parent().parent().parent().css("display", "block");
               }
             });
           }
+        } else {
+          $("article:has('time')").each(function (index, timeElm) {
+            // 表示がnoneの場合は表示する
+            if (
+              $(timeElm).parent().parent().parent().css("display") === "none"
+            ) {
+              $(timeElm).parent().parent().parent().css("display", "block");
+            }
+          });
+        }
+        // フィルタ処理ここまで
+      }
+
+      // 設定ページの場合
+      if (location.pathname.includes("/settings")) {
+        // ユーザースクリプトの設定画面を開くボタンが追加されていない場合、設定画面を開くボタンを追加する
+        if ($("#xbo-settingBtn").length === 0) {
+          $('a[href="https://support.x.com/"]')
+            .clone(true)
+            .attr("id", "xbo-settingBtn")
+            .removeAttr("href")
+            .insertBefore('a[href="https://support.x.com/"]');
+          $("#xbo-settingBtn").find("span").text(i18n["settingOpen"]);
+          $("#xbo-settingBtn").find("svg").attr("viewBox", "0 0 512 512");
+          $("#xbo-settingBtn").find("svg").html(svgCodeLib["gear"]);
+          $("#xbo-settingBtn").on("click", function (e) {
+            e.stopPropagation();
+            $("#react-root").append(
+              $(`<div id="xbo-settingUI_bg" class="xbo-UI_bgs">
+  <div id="xbo-settingUI" class="xbo-UI"><div>
+    <p class="xbo-UI_title">${i18n["setting"]}</p>
+    <p><label>${i18n["language"]}<select id="xbo-langSelect">
+      <option value="auto">Auto</option>
+      <option value="en">${i18n["langEn"]}</option>
+      <option value="ja">${i18n["langJa"]}</option>
+    </select></label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="xbo-langChangeBtn">${svgCodeLib["save"]}</svg></p>
+    <p class="xbo-UI_categoryTitle">${i18n["importExport"]}</p>
+    <button id="xbo-exportBtn">${i18n["export"]}</button>
+    <textarea id="xbo-exportTextarea" readonly placeholder="${i18n["exportTextarea"]}"></textarea>
+    <button id="xbo-importMargeBtn">${i18n["importMarge"]}</button><button id="xbo-importOverwriteBtn">${i18n["importOverwrite"]}</button>
+    <textarea id="xbo-importTextarea" placeholder="${i18n["importTextarea"]}"></textarea>
+    <p class="xbo-UI_categoryTitle">${i18n["reset"]}</p>
+    <p><button id="xbo-allFolderDeleteBtn">${i18n["deleteAllFolders"]}</button></p>
+    <p>X Bookmarks Organizer ${GM_info.script.version} | <a id="xbo-openAboutUI">${i18n["aboutThisScript"]}</a></p>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-settingUICloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
+  </div></div>
+</div>`)
+            );
+            $("body").css("overflow", "hidden");
+            $("#xbo-settingUI_bg").on("click", function () {
+              $("body").css("overflow", "unset");
+              $("#xbo-settingUI_bg").remove();
+            });
+            $("#xbo-settingUI").on("click", function (e) {
+              e.stopPropagation();
+            });
+            $("#xbo-langSelect").val(GM_getValue("lang", "auto"));
+            $("#xbo-langChangeBtn").on("click", function () {
+              GM_setValue("lang", $("#xbo-langSelect").val());
+              location.reload();
+            });
+            $("#xbo-exportBtn").on("click", function () {
+              $("#xbo-exportTextarea").val(JSON.stringify(bookmarksInfo));
+            });
+            $("#xbo-importMargeBtn").on("click", function () {
+              if ($("#xbo-importTextarea").val() === "") {
+                return;
+              }
+              const importedBookmarksInfo = JSON.parse(
+                $("#xbo-importTextarea").val()
+              );
+              // すでに同じIDのポストが存在する場合はフォルダーを統合する。新規IDの場合はそのまま追加する
+              importedBookmarksInfo.forEach((importedPost) => {
+                if (
+                  bookmarksInfo.find((post) => post.id === importedPost.id) !==
+                  undefined
+                ) {
+                  bookmarksInfo.find(
+                    (post) => post.id === importedPost.id
+                  ).folders = [
+                    ...new Set([
+                      ...bookmarksInfo.find(
+                        (post) => post.id === importedPost.id
+                      ).folders,
+                      ...importedPost.folders,
+                    ]),
+                  ];
+                } else {
+                  bookmarksInfo.push(importedPost);
+                }
+              });
+              // フォルダーを更新
+              updateAllFolders();
+              GM_setValue("bookmarksInfo", bookmarksInfo);
+            });
+            $("#xbo-importOverwriteBtn").on("click", function () {
+              if ($("#xbo-importTextarea").val() === "") {
+                return;
+              }
+              showConfirmDialog(i18n["confirmImportOverwrite"], () => {
+                selectedFolder = undefined;
+                const importedBookmarksInfo = JSON.parse(
+                  $("#xbo-importTextarea").val()
+                );
+                // BookmarksInfoを上書きする
+                bookmarksInfo = importedBookmarksInfo;
+                updateAllFolders();
+                GM_setValue("bookmarksInfo", bookmarksInfo);
+              });
+            });
+            $("#xbo-allFolderDeleteBtn").on("click", function () {
+              showConfirmDialog(i18n["confirmDeleteAllFolders"], () => {
+                selectedFolder = undefined;
+                bookmarksInfo = [];
+                updateAllFolders();
+                GM_setValue("bookmarksInfo", bookmarksInfo);
+              });
+            });
+            $("#xbo-openAboutUI").on("click", function () {
+              $("#react-root").append(
+                $(`<div id="xbo-aboutUI_bg" class="xbo-UI_bgs">
+  <div id="xbo-aboutUI" class="xbo-UI">
+    <div>
+    <p class="xbo-UI_title">${i18n["aboutThisScript"]}</p>
+    <p class="xbo-UI_categoryTitle">X Bookmarks Organizer ${GM_info.script.version}</p>
+    <div>${i18n["firstRunBody"]}</div>
+    <p class="xbo-UI_categoryTitle">${i18n["changeLogTitle"]}</p>
+    <div>${i18n["changeLog"]}</div>
+    <p>${i18n["showPastChanges"]}</p>
+    <p class="xbo-UI_categoryTitle">${i18n["relatedLinks"]}</p>
+    <p><a href="https://github.com/nashikinako/XBookmarksOrganizer" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https://greasyfork.org/scripts/496107-x-bookmarks-organizer" target="_blank" rel="noopener noreferrer">GreasyFork</a></p>
+    <div>${i18n["author"]}</div>
+    <div>${i18n["license"]}</div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-aboutUICloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
+    </div></div>
+</div>`)
+              );
+              $("#xbo-aboutUI_bg").on("click", function () {
+                $("#xbo-aboutUI_bg").remove();
+              });
+              $("#xbo-aboutUI").on("click", function (e) {
+                e.stopPropagation();
+              });
+              $("#xbo-aboutUICloseBtn").on("click", function () {
+                $("#xbo-aboutUI_bg").remove();
+              });
+            });
+            $("#xbo-settingUICloseBtn").on("click", function () {
+              $("body").css("overflow", "unset");
+              $("#xbo-settingUI_bg").remove();
+            });
+          });
         }
       }
+
       // 以下よりすべてのページに共通する処理
       // すでに処理済みの要素に対しては処理を行わない
       $(
@@ -1228,18 +1309,30 @@ $(function () {
       ).each(function (index, elm) {
         // 処理済みのクラスを追加
         $(elm).addClass("processed");
-        const $bookmarkBtnParent = $(elm).parent();
-        const postID = $(elm)
+        const $bookmarkBtnParent = $(elm)
           .parent()
           .parent()
           .parent()
           .parent()
           .parent()
-          .find("time")
           .parent()
-          .attr("href")
-          .split("/")[3];
-        $bookmarkBtnParent.on("contextmenu", function (e) {
+          .parent();
+        let postID;
+        if (location.pathname.includes("/status")) {
+          postID = location.pathname.split("/")[3];
+        } else {
+          postID = $(elm)
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .parent()
+            .find("time")
+            .parent()
+            .attr("href")
+            .split("/")[3];
+        }
+        $(elm).on("contextmenu", function (e) {
           e.preventDefault();
           if ($bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").length !== 0) {
             if (
@@ -1254,7 +1347,9 @@ $(function () {
             return;
           }
           const $bookmarkFolderEdit = $(
-            `<div class="xbo-bookmarkFolderEdit"></div>`
+            `<div class="xbo-bookmarkFolderEdit">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-folderEditCloseBtn">${svgCodeLib["xMark"]}</svg>
+</div>`
           )
             .on("click", function (e) {
               e.stopPropagation();
@@ -1262,19 +1357,10 @@ $(function () {
             .on("contextmenu", function (e) {
               e.stopPropagation();
             });
-          if ($(elm).attr("data-testid") === "removeBookmark") {
-            if (i18n["updateFolder"] === "Update") {
-              $bookmarkFolderEdit.css("width", "400px");
-              $bookmarkFolderEdit.css("left", "-350px");
-            } else {
-              $bookmarkFolderEdit.css("width", "382px");
-              $bookmarkFolderEdit.css("left", "-330px");
-            }
-          } else {
-            $bookmarkFolderEdit.css("width", "340px");
-            $bookmarkFolderEdit.css("left", "-290px");
-          }
-          $bookmarkBtnParent.prepend($bookmarkFolderEdit);
+          $bookmarkBtnParent.append($bookmarkFolderEdit);
+          $("#xbo-folderEditCloseBtn").on("click", function () {
+            $bookmarkFolderEdit.hide();
+          });
           $bookmarkFolderEdit.slideDown(50);
           const $bookmarkFolderInput = $(
             `<input class="xbo-bookmarkFolderInput" type="text">`
@@ -1291,7 +1377,7 @@ $(function () {
           $bookmarkFolderEdit.append($folderAddSelection);
           $folderAddSelection.append(
             allFolders.map(
-              (folder) => `<option value="${folder}">${folder}</option>`
+              (folder) => `<option value="${folder}">[ ] ${folder}</option>`
             )
           );
           allFolders.forEach((folder) => {
@@ -1299,8 +1385,7 @@ $(function () {
             if ($bookmarkFolderInput.val().includes(folder)) {
               $folderAddSelection
                 .find(`option[value="${folder}"]`)
-                .css("background", "#F7FF05")
-                .css("color", "black");
+                .text("[v] " + folder);
             }
           });
           $bookmarkFolderInput.on("change", function () {
@@ -1309,13 +1394,11 @@ $(function () {
               if ($bookmarkFolderInput.val().includes(folder)) {
                 $folderAddSelection
                   .find(`option[value="${folder}"]`)
-                  .css("background", "#F7FF05")
-                  .css("color", "black");
+                  .text("[v] " + folder);
               } else {
                 $folderAddSelection
                   .find(`option[value="${folder}"]`)
-                  .css("background", "unset")
-                  .css("color", "unset");
+                  .text(folder);
               }
             });
           });
@@ -1346,13 +1429,11 @@ $(function () {
               if ($bookmarkFolderInput.val().includes(folder)) {
                 $folderAddSelection
                   .find(`option[value="${folder}"]`)
-                  .css("background", "#F7FF05")
-                  .css("color", "black");
+                  .text("[v] " + folder);
               } else {
                 $folderAddSelection
                   .find(`option[value="${folder}"]`)
-                  .css("background", "unset")
-                  .css("color", "unset");
+                  .text(folder);
               }
             });
             $folderAddSelection.val(unselectedOptionValue);
@@ -1365,12 +1446,6 @@ $(function () {
           if ($(elm).attr("data-testid") === "removeBookmark") {
             // 更新ボタンを削除
             $bookmarkBtnParent.find(".xbo-updateBtn").remove();
-            $bookmarkBtnParent
-              .find(".xbo-bookmarkFolderEdit")
-              .css("width", "340px");
-            $bookmarkBtnParent
-              .find(".xbo-bookmarkFolderEdit")
-              .css("left", "-290px");
             bookmarksInfo = bookmarksInfo.filter((post) => post.id !== postID);
             updateAllFolders();
             GM_setValue("bookmarksInfo", bookmarksInfo);
@@ -1379,21 +1454,6 @@ $(function () {
               $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit"),
               postID
             );
-            if (i18n["updateFolder"] === "Update") {
-              $bookmarkBtnParent
-                .find(".xbo-bookmarkFolderEdit")
-                .css("width", "400px");
-              $bookmarkBtnParent
-                .find(".xbo-bookmarkFolderEdit")
-                .css("left", "-350px");
-            } else {
-              $bookmarkBtnParent
-                .find(".xbo-bookmarkFolderEdit")
-                .css("width", "382px");
-              $bookmarkBtnParent
-                .find(".xbo-bookmarkFolderEdit")
-                .css("left", "-330px");
-            }
             // 空白またはスペースのみの場合は登録しない
             if (
               !$bookmarkBtnParent
@@ -1444,12 +1504,12 @@ $(function () {
     setTimeout(() => {
       $("#react-root").append(
         $(`<div id="xbo-updateInfo_bg" class="xbo-UI_bgs">
-  <div id="xbo-updateInfo" class="xbo-UI">
+  <div id="xbo-updateInfo" class="xbo-UI"><div>
     <p class="xbo-UI_title">${i18n["updateInfoTitle"]}</p>
     <p class="xbo-UI_categoryTitle">${i18n["changeLogTitle"]}</p>
     ${i18n["changeLog"]}
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-updateInfoCloseBtn" class="xbo-closeBtns"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-  </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-updateInfoCloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
+  </div></div>
 </div>`)
       );
       $("body").css("overflow", "hidden");
@@ -1472,10 +1532,11 @@ $(function () {
     setTimeout(() => {
       $("#react-root").append(
         $(`<div id="xbo-firstRunInfo_bg" class="xbo-UI_bgs">
-  <div id="xbo-firstRunInfo" class="xbo-UI"><p class="xbo-UI_title">${i18n["firstRunTitle"]}</p>
+  <div id="xbo-firstRunInfo" class="xbo-UI"><div>
+    <p class="xbo-UI_title">${i18n["firstRunTitle"]}</p>
     ${i18n["firstRunBody"]}
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-firstRunInfoCloseBtn" class="xbo-closeBtns"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-  </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="xbo-firstRunInfoCloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
+    </div></div>
 </div>`)
       );
       $("body").css("overflow", "hidden");
