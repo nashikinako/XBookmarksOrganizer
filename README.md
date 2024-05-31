@@ -9,6 +9,10 @@ Organize your X bookmarks into folders for free.
 **Links to related pages**  
 [GitHub](https://github.com/nashikinako/XBookmarksOrganizer) | [GreasyFork](https://greasyfork.org/scripts/496107-x-bookmarks-organizer)
 
+## Demo
+
+![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/3.png)
+
 ## Features
 
 - Organize your X bookmarks into folders.
@@ -21,7 +25,7 @@ Organize your X bookmarks into folders for free.
 - Browser
   - Google Chrome
   - Microsoft Edge (Chromium ver.)
-  - Firefox
+  - Firefox (**Including mobile version**)
 
   Other browsers such as Chromium-based browsers and Firefox-derived browsers may also work.
 
@@ -32,7 +36,8 @@ Organize your X bookmarks into folders for free.
   Other similar extensions may also work.
 
 > [!IMPORTANT]  
-> I have not tested the operation of this script in the Firefox mobile version with the above extension.
+> ~~I have not tested the operation of this script in the Firefox mobile version with the above extension.~~  
+> With v1.1.0, it is now officially compatible with the mobile version of Firefox.
 
 ## Installation
 
@@ -47,15 +52,24 @@ See [usage guide](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/u
 
 ## Note
 
-- It is too much trouble for the author to check the operation in various environments, so if you were able to check the operation yourself, please post it to [GitHub's issue](https://github.com/nashikinako/XBookmarksOrganizer/issues/1) or GreasyFork's feedback page.
+- It is too much trouble for the author to check the operation in various environments, so if you were able to check the operation yourself, please post it to [GitHub's issue](https://github.com/nashikinako/XBookmarksOrganizer/issues/1) or [GreasyFork's feedback page](https://greasyfork.org/scripts/496107-x-bookmarks-organizer/feedback).
 
 - It has already been configured to support the X URL change: the script is set to be inserted for both x.com and twitter.com.
+
+## About Donations
+
+This script is provided free of charge, but donations are welcome.
+
+The only method is to purchase gift certificates from Amazon.co.jp, so if you do not live in Japan, it may be difficult to donate, but your donation will help us encourage future development.
+
+If you would like to make a donation, you can do so by purchasing and sending an Amazon.co.jp gift certificate to `nashikinako★outlook.com` (★→@).
 
 ## Author
 
 - Nashikinako
 - X: [@nashikinako](https://x.com/nashikinako)
 - YouTube: [@nashikinako](https://www.youtube.com/@nashikinako)
+- Email: `nashikinako★outlook.com` (★→@)
 - Nashikinako Website (only in Japanese): <https://nashikinako.com>
 
 ## License

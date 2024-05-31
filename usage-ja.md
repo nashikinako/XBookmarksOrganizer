@@ -4,6 +4,9 @@
 
 [English ver.](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md) | 日本語版
 
+> [!NOTE]  
+> 一部の画像は旧バージョンのUIですが、現バージョンと大きな違いはありません。ご了承ください。
+
 ## ポストをフォルダに追加する
 
 ![0.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/0.png)
@@ -72,7 +75,7 @@
 
 ### 設定パネルを開く
 
-ブックマークページのタイトルの隣にある歯車のマークをクリックして設定パネルを開きます。
+Xの設定画面にある「X Bookmarks Organizerの設定を開く」をクリックします。
 
 ### 言語
 
