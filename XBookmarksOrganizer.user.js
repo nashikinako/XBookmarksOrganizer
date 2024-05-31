@@ -7,7 +7,7 @@
 // @icon        https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/icon.png
 // @grant       GM_setValue
 // @grant       GM_getValue
-// @version     1.1.0
+// @version     1.1.1
 // @author      Nashikinako
 // @license     MIT
 // @description Organize your X bookmarks into folders for free.
@@ -175,7 +175,7 @@ $(function () {
 <p class="xbo-UI_categoryTitle">About Donations</p>
 <p>This script is provided free of charge, but donations are welcome.<br>The only method is to purchase gift certificates from Amazon.co.jp, so if you do not live in Japan, it may be difficult to donate, but your donation will help us encourage future development.</p>
 <p>If you would like to make a donation, you can do so by purchasing and sending an Amazon.co.jp gift certificate to <code>nashikinako★outlook.com</code> (★→@).</p>`,
-      updateInfoTitle: "X Bookmarks Organizer has been updated to v1.0.0!",
+      updateInfoTitle: `X Bookmarks Organizer has been updated to v${GM_info.script.version}!`,
       changeLogTitle: "Change log from previous version",
       changeLog: `<p>Add</p>
 <ul>
@@ -244,8 +244,7 @@ $(function () {
 <p class="xbo-UI_categoryTitle">寄付について</p>
 <p>このスクリプトは無料で提供していますが、寄付を受け付けています。<br>寄付をしていただけると、今後の開発の励みになります。</p>
 <p>もし寄付をしていただけるなら、Amazon.co.jpギフト券を購入して <code>nashikinako★outlook.com</code> (★→@) 宛に送っていただくことで行うことができます。</p>`,
-      updateInfoTitle:
-        "X Bookmarks Organizerがv1.0.0にアップデートされました！",
+      updateInfoTitle: `X Bookmarks Organizerがv${GM_info.script.version}にアップデートされました！`,
       changeLogTitle: "前バージョンからの変更履歴",
       changeLog: `<p>追加点</p>
 <ul>
