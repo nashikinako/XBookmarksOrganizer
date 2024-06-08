@@ -5,7 +5,8 @@
 English ver. | [日本語版](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)
 
 > [!NOTE]  
-> Some of the images are the UI from the previous version, but there are no major differences from the current version. Please understand.
+> Some of the images are the UI from the previous version, but there are no major differences from the current version. Please understand.  
+> The mobile version can also be used in this way by replacing click with tap and right-click with long-press.
 
 ## Add post to folder
 
@@ -25,6 +26,18 @@ Separate folders from each other with a space. If a folder name contains spaces,
 Using the selection box, you can easily add posts to an existing folder.
 
 Click on an option item to add or remove it from the folder.
+
+### Add to folder immediately after bookmark registration
+
+![7.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/7.png)
+
+Click on "Add to Folder."
+
+![8.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/8.png)
+
+You can add folders in the same way as above for adding folders.
+
+Finally, press "Save" to save the file.
 
 ## Edit folder of post
 
@@ -71,11 +84,15 @@ Click "Finish editing" to finish editing mode.
 
 ## Script's Setting
 
-![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/6.png)
-
 ### Open setting panel
 
+![9.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/9.png)
+
 Click the "Open X Bookmarks Organizer setting" that is in X's setting page.
+
+---
+
+![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/6.png)
 
 ### Language
 
