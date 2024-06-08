@@ -5,7 +5,8 @@
 [English ver.](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md) | 日本語版
 
 > [!NOTE]  
-> 一部の画像は旧バージョンのUIですが、現バージョンと大きな違いはありません。ご了承ください。
+> 一部の画像は旧バージョンのUIですが、現バージョンと大きな違いはありません。ご了承ください。  
+> また、モバイル版でもクリックをタップ、右クリックを長押しに読み替えればこの通りで使えます。
 
 ## ポストをフォルダに追加する
 
@@ -25,6 +26,18 @@
 選択ボックスを使って、既存のフォルダにポストを簡単に追加できます。
 
 オプション項目をクリックして、フォルダに追加・削除できます。
+
+### ブックマーク登録直後にフォルダに追加する
+
+![7.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/7.png)
+
+「フォルダに追加」をクリックします。
+
+![8.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/8.png)
+
+上記のフォルダ追加方法と同様にしてフォルダに追加できます。
+
+最後に「保存」を押して保存してください。
 
 ## ポストのフォルダを編集する
 
@@ -71,11 +84,15 @@
 
 ## スクリプトの設定
 
-![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/6.png)
-
 ### 設定パネルを開く
 
+![9.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/9.png)
+
 Xの設定画面にある「X Bookmarks Organizerの設定を開く」をクリックします。
+
+---
+
+![6.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/6.png)
 
 ### 言語
 
