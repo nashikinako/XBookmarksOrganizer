@@ -61,6 +61,8 @@ By clicking on the list element with the folder name on the list, you can filter
 
 Click "Edit folders" to enter editing mode.
 
+Click "Clean Folders" to clean unnecessary folders.
+
 ## Folder editing mode
 
 ![5.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/5.png)
@@ -81,6 +83,12 @@ You can delete folders by clicking on the Trash button.
 ### Finish editing mode
 
 Click "Finish editing" to finish editing mode.
+
+## Clean unnecessary folders
+
+Due to a bug in the script, deletion of bookmarks in an environment without the script, etc., if data regarding posts that are not in the list of bookmarked posts in X are registered in the script's data, a folder will be generated that will not contain a single post.
+
+You can delete such unnecessary folders by clicking "Clean Folders" on the folder list screen.
 
 ## Script's Setting
 
