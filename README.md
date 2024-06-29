@@ -19,6 +19,7 @@ Organize your X bookmarks into folders for free.
 - Folder names can be edited later.
 - Folders can be deleted.
 - Data of script can be imported and exported.
+- You can automatically clean unnecessary folders.
 
 ## Requirement
 
@@ -56,20 +57,11 @@ See [usage guide](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/u
 
 - It has already been configured to support the X URL change: the script is set to be inserted for both x.com and twitter.com.
 
-## About Donations
-
-This script is provided free of charge, but donations are welcome.
-
-The only method is to purchase gift certificates from Amazon.co.jp, so if you do not live in Japan, it may be difficult to donate, but your donation will help us encourage future development.
-
-If you would like to make a donation, you can do so by purchasing and sending an Amazon.co.jp gift certificate to `nashikinako★outlook.com` (★→@).
-
 ## Author
 
 - Nashikinako
 - X: [@nashikinako](https://x.com/nashikinako)
 - YouTube: [@nashikinako](https://www.youtube.com/@nashikinako)
-- Email: `nashikinako★outlook.com` (★→@)
 - Nashikinako Website (only in Japanese): <https://nashikinako.com>
 
 ## License

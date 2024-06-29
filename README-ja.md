@@ -19,6 +19,7 @@ Xのブックマークを無料でフォルダに整理。
 - 後からフォルダ名を編集できます。
 - フォルダの削除もできます。
 - スクリプトのデータはインポート・エクスポートできます。
+- 不要なフォルダを自動で清掃できます。
 
 ## 動作要件
 
@@ -56,20 +57,11 @@ Xのブックマークを無料でフォルダに整理。
 
 - このスクリプトはXのURL変更に対応していて、x.comとtwitter.comの両方に挿入されるように設定されています。
 
-## 寄付について
-
-このスクリプトは無料で提供していますが、寄付を受け付けています。
-
-寄付をしていただけると、今後の開発の励みになります。
-
-もし寄付をしていただけるなら、Amazon.co.jpギフト券を購入して `nashikinako★outlook.com` (★→@) 宛に送っていただくことで行うことができます。
-
 ## 作者
 
 - なしきなこ
 - X: [@nashikinako](https://x.com/nashikinako)
 - YouTube: [@nashikinako](https://www.youtube.com/@nashikinako)
-- Eメール: `nashikinako★outlook.com` (★→@)
 - なしきなこ Website: <https://nashikinako.com>
 
 ## ライセンス
