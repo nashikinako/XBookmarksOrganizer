@@ -99,6 +99,65 @@ $(function () {
     }
   };
 
+  // メッセージを表示する関数
+  const showMsg = (msg, duration, btnMsg, btnCallback) => {
+    let msgElm;
+    let mobileExtraDuration = 0;
+    if (
+      $("nav.css-175oi2r.r-18u37iz.r-drjvcx.r-ripixn.r-13qz1uu").length === 0
+    ) {
+      msgElm = $(
+        `<div class="css-175oi2r r-aqfbo4 r-zchlnj r-1d2f490 r-1xcajam r-1p0dtai r-12vffkv">
+  <div class="css-175oi2r r-12vffkv">
+    <div class="css-175oi2r r-12vffkv">
+      <div class="css-175oi2r r-633pao r-f8sm7e r-13qz1uu r-1ye8kvj">
+        <div role="alert" class="css-175oi2r r-1awozwy r-l5o3uw r-18u37iz r-1wtj0ep r-q81ovl r-105ug2t r-bgwyeh r-1kihuf0 r-z2wwpe r-1vxqurs" style="transition-property: opacity; transition-duration: 170ms; transition-timing-function: cubic-bezier(0, 0, 1, 1); opacity: 1; z-index: 999999999999;" data-testid="toast">
+          <div dir="ltr" class="css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-1tl8opc r-1b43r93 r-14yzgew r-16dba41 r-1wbh5a2 r-1m1l54l" style="text-overflow: unset; color: rgb(255, 255, 255);"><span class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-1tl8opc" style="text-overflow: unset;">${msg}</span></div>
+          <div aria-hidden="true" class="css-175oi2r r-18u37iz"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
+      );
+    } else {
+      msgElm = $(
+        `<div class="css-175oi2r r-12vffkv" style="position: fixed; bottom: 0px; width: 100%; transition: transform 300ms; transform: translateY(-50px);">
+  <div class="css-175oi2r r-12vffkv">
+    <div class="css-175oi2r r-633pao r-f8sm7e r-13qz1uu">
+      <div role="alert" class="css-175oi2r r-1awozwy r-l5o3uw r-18u37iz r-1wtj0ep r-q81ovl r-105ug2t r-bgwyeh" style="transition-property: opacity; transition-duration: 170ms; transition-timing-function: cubic-bezier(0, 0, 1, 1); opacity: 1.0; z-index: 999999999999;" data-testid="toast">
+        <div dir="ltr" class="css-146c3p1 r-bcqeeo r-1ttztb7 r-qvutc0 r-1tl8opc r-1b43r93 r-14yzgew r-16dba41 r-1wbh5a2 r-1m1l54l" style="text-overflow: unset; color: rgb(255, 255, 255);"><span class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-1tl8opc" style="text-overflow: unset;">${msg}</span></div>
+        <div aria-hidden="true" class="css-175oi2r r-18u37iz"></div>
+      </div>
+    </div>
+  </div>
+</div>`
+      );
+      mobileExtraDuration = 500;
+    }
+    $("#layers").append(msgElm);
+    if (btnMsg && btnCallback) {
+      $(msgElm)
+        .find(".css-175oi2r.r-18u37iz:nth-of-type(2)")
+        .append(
+          $(
+            `<button dir="ltr" role="button" class="css-146c3p1 r-bcqeeo r-qvutc0 r-1tl8opc r-1b43r93 r-14yzgew r-b88u0q r-1kihuf0 r-1b3h71f r-3s2u2q r-jdiy1a r-fdjqy7" style="text-overflow: unset; color: rgb(255, 255, 255);" type="button"><span class="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-1tl8opc" style="text-overflow: unset;">${btnMsg}</span></button>`
+          )
+            .on("click", btnCallback)
+            .on("mouseenter", function () {
+              $(this).css("text-decoration", "underline");
+            })
+            .on("mouseleave", function () {
+              $(this).css("text-decoration", "none");
+            })
+        );
+    }
+
+    setTimeout(() => {
+      msgElm.remove();
+    }, duration + mobileExtraDuration);
+  };
+
   // 確認ダイアログを表示する関数
   const showConfirmDialog = (message, callback) => {
     $("#react-root").append(
@@ -124,91 +183,13 @@ $(function () {
     });
   };
 
-  // 更新ボタンを追加する関数
-  const addUpdateBtn = (elm, postID) => {
-    const $updateButton = $(
-      `<button class="xbo-updateBtn">${i18n["updateFolder"]}</button>`
-    );
-    elm.append($updateButton);
-    $updateButton.on("click", function (e) {
-      // 空白またはスペースのみの場合は削除する
-      if (
-        elm
-          .parent()
-          .find(".xbo-bookmarkFolderInput")
-          .val()
-          .replaceAll("　", " ")
-          .split(" ")
-          .every((folder) => folder === "")
-      ) {
-        bookmarksInfo = bookmarksInfo.filter((post) => post.id !== postID);
-      } else {
-        if (bookmarksInfo.find((post) => post.id === postID)) {
-          bookmarksInfo.find((post) => post.id === postID).folders = [
-            ...elm
-              .parent()
-              .find(".xbo-bookmarkFolderInput")
-              .val()
-              .replaceAll("　", " ")
-              .split(" ")
-              .filter((folder) => folder !== ""),
-          ];
-        } else {
-          bookmarksInfo.push({
-            id: postID,
-            folders: [
-              ...elm
-                .parent()
-                .find(".xbo-bookmarkFolderInput")
-                .val()
-                .replaceAll("　", " ")
-                .split(" ")
-                .filter((folder) => folder !== ""),
-            ],
-          });
-        }
-        // 重複を削除
-        bookmarksInfo = bookmarksInfo.map((post) => ({
-          id: post.id,
-          folders: [...new Set(post.folders)],
-        }));
-      }
-      updateAllFolders();
-      GM_setValue("bookmarksInfo", bookmarksInfo);
-      $updateButton.attr("style", "background: rgb(29, 155, 240);color: #fff;");
-      setTimeout(() => {
-        $updateButton.removeAttr("style");
-      }, 1000);
-    });
-  };
-
   const i18nLib = {
     en: {
       firstRunTitle: "Thank you for installing X Bookmarks Organizer!",
       firstRunBody: `<p>This script enables you to organize your X bookmarks into folders.<br>Please see <a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage.md" target="_blank" rel="noopener noreferrer">usage guide</a> to know how to use.</p>`,
       updateInfoTitle: `X Bookmarks Organizer has been updated to v${GM_info.script.version}!`,
-      changeLogTitle: "Change log from previous version",
-      changeLog: `<p>Add</p>
-<ul>
-  <li>Add a function to automatically delete unnecessary folders.</li>
-</ul>
-<p>Change</p>
-<ul>
-  <li>Change the length of the random string for the ID of unselected or unclassified items from 16 to 32 characters.</li>
-  <li>Improve popup UI center display style.</li>
-  <li>Change svg design.</li>
-  <li>Add prefix to class names that identify processed elements.</li>
-  <li>Update information about script and author.</li>
-</ul>
-<p>Fix</p>
-<ul>
-  <li>Fix post data was not deleted from the script when the bookmark edit UI was not displayed when unmarking a bookmark.</li>
-  <li>Fix no feedback on the update button when deleting from a folder by emptying the folder edit text box.</li>
-  <li>Fix script events interfering with posts translation button events, preventing translation functionality.</li>
-  <li>Fix the mark of unselected items in the select box for selecting existing folders not displaying properly.</li>
-  <li>Fix import/export text box could not be scrolled.</li>
-</ul>`,
-      showPastChanges: `For past changes, see <a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHub release page</a>.`,
+      changeLogTitle: "Change log",
+      changeLog: `See <a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHub release page</a>.`,
       setting: "Setting",
       language: "Language: ",
       langEn: "English",
@@ -241,7 +222,6 @@ $(function () {
 <ul>
 <li>Nashikinako</li>
 <li>X: <a href="https://x.com/nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
-<li>YouTube: <a href="https://www.youtube.com/@nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
 <li>Nashikinako Website (only in Japanese): <a href="https://nashikinako.com" target="_blank" rel="noopener noreferrer">https://nashikinako.com</a></li></ul>`,
       license: `<p class="xbo-UI_categoryTitle">License</p><a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>`,
       settingOpen: "Open X Bookmarks Organizer setting",
@@ -251,34 +231,20 @@ $(function () {
       cleaningFoldersMsg: "Cleaning folders...",
       cleaningCompletedMsg: "Cleaning folders has been completed.",
       addedToFolder: "Added to folder",
+      removedFromAllFolder: "Removed from all folders",
+      editedPostFolder: "Edited post folder",
+      bookmarkAdded: "Added to your Bookmarks",
+      addToFolder: "Add to Folder",
+      updatedFolder: "Updated folder",
+      bkmAddedToFolder: "Added to Bookmarks and folder",
     },
     ja: {
       firstRunTitle:
         "X Bookmarks Organizerをインストールしていただきありがとうございます！",
       firstRunBody: `<p>このスクリプトはXのブックマークを無料でフォルダーに整理できるようにします。<br>使い方は<a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md" target="_blank" rel="noopener noreferrer">使い方ガイド</a>をご覧ください。</p>`,
       updateInfoTitle: `X Bookmarks Organizerがv${GM_info.script.version}にアップデートされました！`,
-      changeLogTitle: "前バージョンからの変更履歴",
-      changeLog: `<p>追加点</p>
-<ul>
-  <li>不要なフォルダを自動で削除する機能を追加</li>
-</ul>
-<p>変更点</p>
-<ul>
-  <li>未選択や未分類の項目のIDのランダム文字列の長さを16文字から32文字に変更</li>
-  <li>ポップアップUIの中央表示のスタイルを改善</li>
-  <li>svgのデザインを変更</li>
-  <li>処理済みの要素を判別するclass名にプレフィックスを追加</li>
-  <li>スクリプトや作者についての情報を更新</li>
-</ul>
-<p>修正点</p>
-<ul>
-  <li>ブックマーク解除時にブックマーク編集UIが表示されていないとスクリプトからポストのデータが削除されなかったのを修正</li>
-  <li>フォルダー編集テキストボックスを空にしてフォルダーから削除するとき、更新ボタンのフィードバックがなかったのを修正</li>
-  <li>スクリプトのイベントがポストの翻訳ボタンのイベントと干渉して、翻訳機能が使えなくなっていたのを修正</li>
-  <li>既存のフォルダーを選択するセレクトボックスで未選択の項目のマークが正しく表示されない場合があるのを修正</li>
-  <li>インポート・エクスポートのテキストボックスがスクロールできなかったのを修正</li>
-</ul>`,
-      showPastChanges: `過去の変更履歴は<a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHubのリリースページ</a>をご覧ください。`,
+      changeLogTitle: "変更履歴",
+      changeLog: `<a href="https://github.com/nashikinako/XBookmarksOrganizer/releases" target="_blank" rel="noopener noreferrer">GitHubのリリースページ</a>をご覧ください。`,
       setting: "設定",
       language: "言語：",
       langEn: "英語 - English",
@@ -311,7 +277,6 @@ $(function () {
 <ul>
 <li>なしきなこ</li>
 <li>X: <a href="https://x.com/nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
-<li>YouTube: <a href="https://www.youtube.com/@nashikinako" target="_blank" rel="noopener noreferrer">@nashikinako</a></li>
 <li>なしきなこ Website: <a href="https://nashikinako.com" target="_blank" rel="noopener noreferrer">https://nashikinako.com</a></li></ul>`,
       license: `<p class="xbo-UI_categoryTitle">ライセンス</p><a href="https://github.com/nashikinako/XBookmarksOrganizer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MITライセンス</a>`,
       settingOpen: "X Bookmarks Organizerの設定を開く",
@@ -321,6 +286,12 @@ $(function () {
       cleaningFoldersMsg: "フォルダーを掃除中...",
       cleaningCompletedMsg: "フォルダーの掃除が完了しました。",
       addedToFolder: "フォルダに追加しました",
+      removedFromAllFolder: "すべてのフォルダから削除しました",
+      editedPostFolder: "ポストのフォルダを編集しました",
+      bookmarkAdded: "ブックマークに追加しました",
+      addToFolder: "フォルダに追加",
+      updatedFolder: "フォルダを更新しました",
+      bkmAddedToFolder: "ブックマークとフォルダに追加しました",
     },
   };
   const i18n =
@@ -623,17 +594,6 @@ p:has(#xbo-openAboutUI){
   margin-right: 2%;
   margin-bottom: 10px;
   cursor: pointer;
-}
-.xbo-fixed-msg{
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%,0);
-  background: rgb(29, 155, 240);
-  color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  z-index: 9999;
 }
 @media screen and (max-width: 999px){
   #xbo-settingUI, #xbo-updateInfo, #xbo-firstRunInfo, #xbo-aboutUI, #xbo-allFoldersUI, #xbo-confirmDialog, #xbo-bookmarkFolderPopup{
@@ -974,10 +934,9 @@ p:has(#xbo-openAboutUI){
                   $(elm).removeClass("xbo-gotID");
                 });
                 $("#react-root").append(
-                  $(
-                    `<div class="xbo-UI_bgs" id="xbo-cleaningBg"></div><div class="xbo-fixed-msg">${i18n["cleaningFoldersMsg"]}</div>`
-                  )
+                  `<div class="xbo-UI_bgs" id="xbo-cleaningBg"></div>`
                 );
+                showMsg(i18n["cleaningFoldersMsg"], 4000);
                 isCleaning = true;
                 let cachedMinHeight;
                 checkGotAllPostsInterval = setInterval(() => {
@@ -1004,10 +963,7 @@ p:has(#xbo-openAboutUI){
                       );
                       updateAllFolders();
                       GM_setValue("bookmarksInfo", bookmarksInfo);
-                      $(".xbo-fixed-msg").text(i18n["cleaningCompletedMsg"]);
-                      setTimeout(() => {
-                        $(".xbo-fixed-msg").remove();
-                      }, 6000);
+                      showMsg(i18n["cleaningCompletedMsg"], 4000);
                       $("#xbo-cleaningBg").remove();
                       scrollLock(false);
                       isCleaning = false;
@@ -1281,7 +1237,11 @@ p:has(#xbo-openAboutUI){
                     "none"
                 ) {
                   $(timeElm).parent().parent().parent().css("display", "none");
-                } else if (
+                }
+              });
+              let displayCount = 0;
+              $("article:has('time')").each(function (index, timeElm) {
+                if (
                   !posts.includes(
                     $(timeElm).find("time").parent().attr("href").split("/")[3]
                   ) &&
@@ -1289,6 +1249,10 @@ p:has(#xbo-openAboutUI){
                     "none"
                 ) {
                   $(timeElm).parent().parent().parent().css("display", "block");
+                  displayCount += 1;
+                  if (displayCount > 1) {
+                    return false;
+                  }
                 }
               });
             } else {
@@ -1306,7 +1270,11 @@ p:has(#xbo-openAboutUI){
                     "none"
                 ) {
                   $(timeElm).parent().parent().parent().css("display", "none");
-                } else if (
+                }
+              });
+              let displayCount = 0;
+              $("article:has('time')").each(function (index, timeElm) {
+                if (
                   posts.includes(
                     $(timeElm).find("time").parent().attr("href").split("/")[3]
                   ) &&
@@ -1314,16 +1282,25 @@ p:has(#xbo-openAboutUI){
                     "none"
                 ) {
                   $(timeElm).parent().parent().parent().css("display", "block");
+                  displayCount += 1;
+                  if (displayCount > 1) {
+                    return false;
+                  }
                 }
               });
             }
           } else {
+            let displayCount = 0;
             $("article:has('time')").each(function (index, timeElm) {
               // 表示がnoneの場合は表示する
               if (
                 $(timeElm).parent().parent().parent().css("display") === "none"
               ) {
                 $(timeElm).parent().parent().parent().css("display", "block");
+                displayCount += 1;
+                if (displayCount > 1) {
+                  return false;
+                }
               }
             });
           }
@@ -1475,8 +1452,7 @@ p:has(#xbo-openAboutUI){
     <p class="xbo-UI_categoryTitle">X Bookmarks Organizer ${GM_info.script.version}</p>
     <div>${i18n["firstRunBody"]}</div>
     <p class="xbo-UI_categoryTitle">${i18n["changeLogTitle"]}</p>
-    <div>${i18n["changeLog"]}</div>
-    <p>${i18n["showPastChanges"]}</p>
+    <p>${i18n["changeLog"]}</p>
     <p class="xbo-UI_categoryTitle">${i18n["relatedLinks"]}</p>
     <p><a href="https://github.com/nashikinako/XBookmarksOrganizer" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https://greasyfork.org/scripts/496107-x-bookmarks-organizer" target="_blank" rel="noopener noreferrer">GreasyFork</a></p>
     <div>${i18n["author"]}</div>
@@ -1549,177 +1525,6 @@ p:has(#xbo-openAboutUI){
         }
         $(elm).on("contextmenu", function (e) {
           e.preventDefault();
-          if ($bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").length !== 0) {
-            if (
-              $bookmarkBtnParent
-                .find(".xbo-bookmarkFolderEdit")
-                .css("display") === "none"
-            ) {
-              $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").slideDown(50);
-            } else {
-              $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").hide();
-            }
-            return;
-          }
-          const $bookmarkFolderEdit = $(
-            `<div class="xbo-bookmarkFolderEdit">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="xbo-folderEditCloseBtn">${svgCodeLib["xMark"]}</svg>
-</div>`
-          )
-            .on("click", function (e) {
-              e.stopPropagation();
-            })
-            .on("contextmenu", function (e) {
-              e.stopPropagation();
-            });
-          $bookmarkBtnParent.append($bookmarkFolderEdit);
-          $bookmarkFolderEdit
-            .find(".xbo-folderEditCloseBtn")
-            .on("click", function () {
-              $bookmarkFolderEdit.hide();
-            });
-          $bookmarkFolderEdit.slideDown(50);
-          const $bookmarkFolderInput = $(
-            `<input class="xbo-bookmarkFolderInput" type="text">`
-          );
-          const $folderAddSelection = $(
-            `<select><option value="${unselectedOptionValue}"></option></select>`
-          );
-          $bookmarkFolderEdit.append($bookmarkFolderInput);
-          if (bookmarksInfo.find((post) => post.id === postID) !== undefined) {
-            $bookmarkFolderInput.val(
-              bookmarksInfo.find((post) => post.id === postID).folders.join(" ")
-            );
-          }
-          $bookmarkFolderEdit.append($folderAddSelection);
-          $folderAddSelection.append(
-            allFolders.map(
-              (folder) => `<option value="${folder}">[ ] ${folder}</option>`
-            )
-          );
-          allFolders.forEach((folder) => {
-            // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
-            if ($bookmarkFolderInput.val().includes(folder)) {
-              $folderAddSelection
-                .find(`option[value="${folder}"]`)
-                .text("[v] " + folder);
-            }
-          });
-          $bookmarkFolderInput.on("change", function () {
-            allFolders.forEach((folder) => {
-              // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
-              if ($bookmarkFolderInput.val().includes(folder)) {
-                $folderAddSelection
-                  .find(`option[value="${folder}"]`)
-                  .text("[v] " + folder);
-              } else {
-                $folderAddSelection
-                  .find(`option[value="${folder}"]`)
-                  .text("[ ] " + folder);
-              }
-            });
-          });
-          $folderAddSelection.on("change", function () {
-            if (
-              $bookmarkFolderInput.val().includes($folderAddSelection.val())
-            ) {
-              // すでに存在するフォルダーが選択された場合は削除する
-              $bookmarkFolderInput.val(
-                $bookmarkFolderInput
-                  .val()
-                  .replaceAll("　", " ")
-                  .split(" ")
-                  .filter((folder) => folder !== $folderAddSelection.val())
-                  .join(" ")
-              );
-            } else if ($folderAddSelection.val() !== unselectedOptionValue) {
-              if ($bookmarkFolderInput.val() === "") {
-                $bookmarkFolderInput.val($folderAddSelection.val());
-              } else {
-                $bookmarkFolderInput.val(
-                  $bookmarkFolderInput.val() + " " + $folderAddSelection.val()
-                );
-              }
-            }
-            allFolders.forEach((folder) => {
-              // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
-              if ($bookmarkFolderInput.val().includes(folder)) {
-                $folderAddSelection
-                  .find(`option[value="${folder}"]`)
-                  .text("[v] " + folder);
-              } else {
-                $folderAddSelection
-                  .find(`option[value="${folder}"]`)
-                  .text("[ ] " + folder);
-              }
-            });
-            $folderAddSelection.val(unselectedOptionValue);
-          });
-          if ($(elm).attr("data-testid") === "removeBookmark") {
-            addUpdateBtn($bookmarkFolderEdit, postID);
-          }
-        });
-        $(elm).on("click", function () {
-          lastBookmarkedPostID = postID;
-          if ($(elm).attr("data-testid") === "removeBookmark") {
-            if (
-              $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").length !== 0
-            ) {
-              // 更新ボタンを削除
-              $bookmarkBtnParent.find(".xbo-updateBtn").remove();
-            }
-            bookmarksInfo = bookmarksInfo.filter((post) => post.id !== postID);
-            updateAllFolders();
-            GM_setValue("bookmarksInfo", bookmarksInfo);
-          } else if (
-            $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").length !== 0
-          ) {
-            addUpdateBtn(
-              $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit"),
-              postID
-            );
-            // 空白またはスペースのみの場合は登録しない
-            if (
-              !$bookmarkBtnParent
-                .find(".xbo-bookmarkFolderInput")
-                .val()
-                .replaceAll("　", " ")
-                .split(" ")
-                .every((folder) => folder === "")
-            ) {
-              bookmarksInfo.push({
-                id: postID,
-                folders: [
-                  ...$bookmarkBtnParent
-                    .find(".xbo-bookmarkFolderInput")
-                    .val()
-                    .replaceAll("　", " ")
-                    .split(" ")
-                    .filter((folder) => folder !== ""),
-                ],
-              });
-              // 重複を削除
-              bookmarksInfo = bookmarksInfo.map((post) => ({
-                id: post.id,
-                folders: [...new Set(post.folders)],
-              }));
-              updateAllFolders();
-              GM_setValue("bookmarksInfo", bookmarksInfo);
-            }
-          }
-          // UIを閉じる
-          $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").hide();
-        });
-        $("body").on(`click`, function () {
-          $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").hide();
-        });
-      });
-
-      // フォルダーがブックマークに追加されたときのメッセージにある「フォルダーに追加」ボタンを押したときの処理
-      $("div#layers button.css-146c3p1:not(.xbo-processed)").on(
-        "click",
-        function (e) {
-          e.stopImmediatePropagation();
           $("#react-root").append(
             $(`<div id="xbo-bookmarkFolderPopup_bg" class="xbo-UI_bgs">
   <div id="xbo-bookmarkFolderPopup" class="xbo-UI">
@@ -1740,7 +1545,6 @@ p:has(#xbo-openAboutUI){
             scrollLock(false);
             $("#xbo-bookmarkFolderPopup_bg").remove();
           });
-          const postID = lastBookmarkedPostID;
           const $bookmarkFolderEdit = $(".xbo-bookmarkFolderEdit");
           $bookmarkFolderEdit.css("display", "block");
           $bookmarkFolderEdit.css("width", "90%");
@@ -1821,6 +1625,7 @@ p:has(#xbo-openAboutUI){
             $folderAddSelection.val(unselectedOptionValue);
           });
           $("#xbo-bookmarkFolderPopupSaveBtn").on("click", function () {
+            let msg;
             // 空白またはスペースのみの場合は登録しない
             if (
               !$("#xbo-bookmarkFolderPopup")
@@ -1830,42 +1635,212 @@ p:has(#xbo-openAboutUI){
                 .split(" ")
                 .every((folder) => folder === "")
             ) {
-              bookmarksInfo.push({
-                id: postID,
-                folders: [
-                  ...$("#xbo-bookmarkFolderPopup")
-                    .find(".xbo-bookmarkFolderInput")
-                    .val()
-                    .replaceAll("　", " ")
-                    .split(" ")
-                    .filter((folder) => folder !== ""),
-                ],
-              });
-              // 重複を削除
-              bookmarksInfo = bookmarksInfo.map((post) => ({
-                id: post.id,
-                folders: [...new Set(post.folders)],
-              }));
+              if (
+                bookmarksInfo.find((post) => post.id === postID) === undefined
+              ) {
+                bookmarksInfo.push({
+                  id: postID,
+                  folders: [
+                    ...new Set([
+                      ...$("#xbo-bookmarkFolderPopup")
+                        .find(".xbo-bookmarkFolderInput")
+                        .val()
+                        .replaceAll("　", " ")
+                        .split(" ")
+                        .filter((folder) => folder !== ""),
+                    ]),
+                  ],
+                });
+                // X側のブックマークも登録する
+                if ($(elm).attr("data-testid") === "bookmark") {
+                  $(elm).click();
+                }
+                msg = i18n["bkmAddedToFolder"];
+              } else {
+                bookmarksInfo.find((post) => post.id === postID).folders = [
+                  ...new Set([
+                    ...$("#xbo-bookmarkFolderPopup")
+                      .find(".xbo-bookmarkFolderInput")
+                      .val()
+                      .replaceAll("　", " ")
+                      .split(" ")
+                      .filter((folder) => folder !== ""),
+                  ]),
+                ];
+                msg = i18n["updatedFolder"];
+              }
               updateAllFolders();
               GM_setValue("bookmarksInfo", bookmarksInfo);
+            } else {
+              // フォルダーが空の場合は削除する
+              bookmarksInfo = bookmarksInfo.filter(
+                (post) => post.id !== postID
+              );
+              updateAllFolders();
+              GM_setValue("bookmarksInfo", bookmarksInfo);
+              msg = i18n["removedFromAllFolder"];
             }
             // UIを閉じる
             scrollLock(false);
             $("#xbo-bookmarkFolderPopup_bg").remove();
-            // メッセージを表示
-            $("#react-root").append(
-              $(`<div class="xbo-fixed-msg">${i18n["addedToFolder"]}</div>`)
-            );
-            setTimeout(() => {
-              $(".xbo-fixed-msg").remove();
-            }, 6000);
+            showMsg(msg, 6100);
           });
-        }
-      );
-      // 処理済みのクラスを追加
-      $("div#layers button.css-146c3p1:not(.xbo-processed)").addClass(
-        "xbo-processed"
-      );
+        });
+        $(elm).on("click", function () {
+          if ($(elm).attr("data-testid") === "removeBookmark") {
+            bookmarksInfo = bookmarksInfo.filter((post) => post.id !== postID);
+            updateAllFolders();
+            GM_setValue("bookmarksInfo", bookmarksInfo);
+          } else {
+            showMsg(i18n["bookmarkAdded"], 6100, i18n["addToFolder"], () => {
+              $("#react-root").append(
+                $(`<div id="xbo-bookmarkFolderPopup_bg" class="xbo-UI_bgs">
+  <div id="xbo-bookmarkFolderPopup" class="xbo-UI">
+    <div class="xbo-bookmarkFolderEdit"></div>
+    <button id="xbo-bookmarkFolderPopupSaveBtn">${i18n["save"]}</button>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xbo-bookmarkFolderPopupCloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
+  </div>
+</div>`)
+              );
+              scrollLock(true);
+              $("#xbo-bookmarkFolderPopup_bg").on("click", function () {
+                $("#xbo-bookmarkFolderPopup_bg").remove();
+              });
+              $("#xbo-bookmarkFolderPopup").on("click", function (e) {
+                e.stopPropagation();
+              });
+              $("#xbo-bookmarkFolderPopupCloseBtn").on("click", function () {
+                scrollLock(false);
+                $("#xbo-bookmarkFolderPopup_bg").remove();
+              });
+              const $bookmarkFolderEdit = $(".xbo-bookmarkFolderEdit");
+              $bookmarkFolderEdit.css("display", "block");
+              $bookmarkFolderEdit.css("width", "90%");
+              const $bookmarkFolderInput = $(
+                `<input class="xbo-bookmarkFolderInput" type="text">`
+              );
+              const $folderAddSelection = $(
+                `<select><option value="${unselectedOptionValue}"></option></select>`
+              );
+              $bookmarkFolderEdit.append($bookmarkFolderInput);
+              if (
+                bookmarksInfo.find((post) => post.id === postID) !== undefined
+              ) {
+                $bookmarkFolderInput.val(
+                  bookmarksInfo
+                    .find((post) => post.id === postID)
+                    .folders.join(" ")
+                );
+              }
+              $bookmarkFolderEdit.append($folderAddSelection);
+              $folderAddSelection.append(
+                allFolders.map(
+                  (folder) => `<option value="${folder}">[ ] ${folder}</option>`
+                )
+              );
+              allFolders.forEach((folder) => {
+                // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
+                if ($bookmarkFolderInput.val().includes(folder)) {
+                  $folderAddSelection
+                    .find(`option[value="${folder}"]`)
+                    .text("[v] " + folder);
+                }
+              });
+              $bookmarkFolderInput.on("change", function () {
+                allFolders.forEach((folder) => {
+                  // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
+                  if ($bookmarkFolderInput.val().includes(folder)) {
+                    $folderAddSelection
+                      .find(`option[value="${folder}"]`)
+                      .text("[v] " + folder);
+                  } else {
+                    $folderAddSelection
+                      .find(`option[value="${folder}"]`)
+                      .text("[ ] " + folder);
+                  }
+                });
+              });
+              $folderAddSelection.on("change", function () {
+                if (
+                  $bookmarkFolderInput.val().includes($folderAddSelection.val())
+                ) {
+                  // すでに存在するフォルダーが選択された場合は削除する
+                  $bookmarkFolderInput.val(
+                    $bookmarkFolderInput
+                      .val()
+                      .replaceAll("　", " ")
+                      .split(" ")
+                      .filter((folder) => folder !== $folderAddSelection.val())
+                      .join(" ")
+                  );
+                } else if (
+                  $folderAddSelection.val() !== unselectedOptionValue
+                ) {
+                  if ($bookmarkFolderInput.val() === "") {
+                    $bookmarkFolderInput.val($folderAddSelection.val());
+                  } else {
+                    $bookmarkFolderInput.val(
+                      $bookmarkFolderInput.val() +
+                        " " +
+                        $folderAddSelection.val()
+                    );
+                  }
+                }
+                allFolders.forEach((folder) => {
+                  // テキストボックスにフォルダーが存在する場合はセレクトボックスの項目をハイライトする
+                  if ($bookmarkFolderInput.val().includes(folder)) {
+                    $folderAddSelection
+                      .find(`option[value="${folder}"]`)
+                      .text("[v] " + folder);
+                  } else {
+                    $folderAddSelection
+                      .find(`option[value="${folder}"]`)
+                      .text("[ ] " + folder);
+                  }
+                });
+                $folderAddSelection.val(unselectedOptionValue);
+              });
+              $("#xbo-bookmarkFolderPopupSaveBtn").on("click", function () {
+                // 空白またはスペースのみの場合は登録しない
+                if (
+                  !$("#xbo-bookmarkFolderPopup")
+                    .find(".xbo-bookmarkFolderInput")
+                    .val()
+                    .replaceAll("　", " ")
+                    .split(" ")
+                    .every((folder) => folder === "")
+                ) {
+                  bookmarksInfo.push({
+                    id: postID,
+                    folders: [
+                      ...new Set([
+                        ...$("#xbo-bookmarkFolderPopup")
+                          .find(".xbo-bookmarkFolderInput")
+                          .val()
+                          .replaceAll("　", " ")
+                          .split(" ")
+                          .filter((folder) => folder !== ""),
+                      ]),
+                    ],
+                  });
+                  updateAllFolders();
+                  GM_setValue("bookmarksInfo", bookmarksInfo);
+                  // メッセージを表示
+                  showMsg(i18n["addedToFolder"], 4000);
+                }
+                // UIを閉じる
+                scrollLock(false);
+                $("#xbo-bookmarkFolderPopup_bg").remove();
+              });
+            });
+          }
+          // UIを閉じる
+          $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").hide();
+        });
+        $("body").on(`click`, function () {
+          $bookmarkBtnParent.find(".xbo-bookmarkFolderEdit").hide();
+        });
+      });
     }
   };
 
@@ -1883,7 +1858,7 @@ p:has(#xbo-openAboutUI){
   <div id="xbo-updateInfo" class="xbo-UI"><div><div>
     <p class="xbo-UI_title">${i18n["updateInfoTitle"]}</p>
     <p class="xbo-UI_categoryTitle">${i18n["changeLogTitle"]}</p>
-    ${i18n["changeLog"]}
+    <p>${i18n["changeLog"]}</p>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xbo-updateInfoCloseBtn" class="xbo-closeBtns">${svgCodeLib["xMark"]}</svg>
   </div></div></div>
 </div>`)
