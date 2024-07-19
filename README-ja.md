@@ -1,6 +1,6 @@
 # X Bookmarks Organizer
 
-[English ver.](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README.md) | 日本語版
+[English](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README.md) | 日本語
 
 ![ユーザースクリプトのアイコン](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/icon.png)
 
@@ -11,7 +11,7 @@ Xのブックマークを無料でフォルダに整理。
 
 ## デモ
 
-![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/3.png)
+![2.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/ja/2.png)
 
 ## 機能
 
@@ -20,6 +20,7 @@ Xのブックマークを無料でフォルダに整理。
 - フォルダの削除もできます。
 - スクリプトのデータはインポート・エクスポートできます。
 - 不要なフォルダを自動で清掃できます。
+- **[New!] アカウントごとのブックマークフォルダの作成に対応しています。**
 
 ## 動作要件
 
@@ -51,6 +52,14 @@ Xのブックマークを無料でフォルダに整理。
 
 [使い方ガイド](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)をご覧ください。
 
+## 寄付について
+
+当スクリプトを使用してみて役に立つと思ったらぜひ、寄付をお願いします。
+もちろん強制ではありませんが、いただけると今後の活動への励ましになります。
+寄付でなくても、当ユーザースクリプトをSNS等でシェアしていただけるだけでも大変助かります。
+
+もし寄付をして頂ける場合は、`nasikinako@gmail.com`に[Amazon.co.jpギフトカード(Eメールタイプ)](https://www.amazon.co.jp/Amazon%E3%82%AE%E3%83%95%E3%83%88%E3%82%AB%E3%83%BC%E3%83%89-1_JP_Email-E%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97-%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%AB%E3%82%82%E9%80%81%E4%BF%A1%E5%8F%AF-Amazon%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF/dp/B004N3APGO)を送信してください。
+
 ## メモ
 
 - 作者がいろいろな環境で動作確認するのは面倒なので、自分で動作確認できた方は[GitHubのissue](https://github.com/nashikinako/XBookmarksOrganizer/issues/1)か[GreasyForkのフィードバックページ](https://greasyfork.org/scripts/496107-x-bookmarks-organizer/feedback)に投稿してください。
@@ -61,8 +70,7 @@ Xのブックマークを無料でフォルダに整理。
 
 - なしきなこ
 - X: [@nashikinako](https://x.com/nashikinako)
-- YouTube: [@nashikinako](https://www.youtube.com/@nashikinako)
-- なしきなこ Website: <https://nashikinako.com>
+- なしきなこ Profile: <https://nashikinako.com>
 
 ## ライセンス
 

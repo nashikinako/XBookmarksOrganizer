@@ -2,58 +2,51 @@
 
 [< Back to README](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/README.md)
 
-English ver. | [日本語版](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)
+English | [日本語](https://github.com/nashikinako/XBookmarksOrganizer/blob/main/usage-ja.md)
 
 > [!NOTE]  
-> Some of the images are the UI from the previous version, but there are no major differences from the current version. Please understand.  
 > The mobile version can also be used in this way by replacing click with tap and right-click with long-press.
 
-## Add post to folder
+## Data storage format has been changed since v1.4.0
+
+![format-update.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/format-update.png)
+
+If you have been using the script since before v1.4.0, please be sure to update it.
+
+You will not be able to use the script until it is updated.
+
+## Add post to folder/Edit saved bookmarks
+
+Right-click on the bookmark button to open the Edit Folder UI.
 
 ![0.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/0.png)
 
-1. Right-click on the bookmark button to open the Edit Folder UI.
-2. Input folders' name to textbox.
-3. Click the bookmark button.
-4. You have now added the bookmark to X and saved the folder info to the script data.
+- You can add the selected text as a folder by selecting the text in the area where the post content is displayed and clicking on “Add selected text”.
+- You can add a hashtag as a folder by clicking on the hashtag.
+- By clicking “Add all hashtags,” you can add all hashtags.
+- You can add a folder by entering a folder name in the text box and clicking “New Folder”.
+- If you check the “Add multiple with space separation” checkbox, you can add multiple folders at once by entering multiple folder names separated by spaces in the text box.
+- The folder list below shows folders that already exist and folders you are about to add.
+- Click on a folder element to add/remove it from the folder.
+- If you click on a folder element to add a new one, it will be deleted and you will have to start over with one of the above steps to re-add it.
 
-Separate folders from each other with a space. If a folder name contains spaces, replace them with such things as underscores or hyphens.
-
----
-
-![1.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/1.png)
-
-Using the selection box, you can easily add posts to an existing folder.
-
-Click on an option item to add or remove it from the folder.
+Finally, press “Save” to register the bookmark or save your edits.
 
 ### Add to folder immediately after bookmark registration
 
-![7.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/7.png)
+![1.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/1.png)
 
 Click on "Add to Folder."
 
-![8.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/8.png)
-
-You can add folders in the same way as above for adding folders.
-
-Finally, press "Save" to save the file.
-
-## Edit folder of post
-
-![2.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/2.png)
-
-You can edit a folder of already bookmarked posts by editing the folder and clicking the "Update" button in the same way as when adding to a folder.
-
 ## Filter posts in Bookmarks page
 
-![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/3.png)
+![2.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/2.png)
 
 By clicking on the button with the folder name on the bookmarks page, you can filter and unfilter by that folder.
 
 ## View folder list
 
-![4.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/4.png)
+![3.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/3.png)
 
 Click "..." to open the folder list.
 
@@ -65,7 +58,7 @@ Click "Clean Folders" to clean unnecessary folders.
 
 ## Folder editing mode
 
-![5.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/5.png)
+![4.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/4.png)
 
 ### Edit folder name
 
@@ -94,7 +87,7 @@ You can delete such unnecessary folders by clicking "Clean Folders" on the folde
 
 ### Open setting panel
 
-![9.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/9.png)
+![5.png](https://raw.githubusercontent.com/nashikinako/XBookmarksOrganizer/main/usage-imgs/5.png)
 
 Click the "Open X Bookmarks Organizer setting" that is in X's setting page.
 
@@ -124,9 +117,14 @@ This method never deletes existing folders.
 Imports the JSON entered in the text box below, overwriting existing data.
 
 > [!WARNING]  
-> This method may result in the loss of existing folders.
+> This method may result in the loss of data and folders in existing script accounts.
 
-## Delete all folders
+## Delete all folders for selected account
 
 > [!WARNING]  
-> You will know what it means that you are doing this (:>)
+> You know what it means to do this (:>)
+
+## Reset folder data for all accounts
+
+> [!WARNING]  
+> you know what it means to do this (:>)
